@@ -17,6 +17,7 @@
 		4919E1FB1EE5CB590022F44D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4919E1F91EE5CB590022F44D /* LaunchScreen.storyboard */; };
 		4919E2061EE5CB5A0022F44D /* FollowMeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4919E2051EE5CB5A0022F44D /* FollowMeTests.m */; };
 		4919E2111EE5CB5A0022F44D /* FollowMeUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4919E2101EE5CB5A0022F44D /* FollowMeUITests.m */; };
+		4919E2211EE5D1930022F44D /* MapApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4919E2201EE5D1930022F44D /* MapApi.swift */; };
 		78634F96DA18BBC50ECE3812 /* Pods_FollowMeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B5588E94DE8DFE5AB8A21C7 /* Pods_FollowMeTests.framework */; };
 		98DF1EDA3BF9E000623EFDE1 /* Pods_FollowMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF1D1A6D0DF0AD3B9525FEF /* Pods_FollowMe.framework */; };
 /* End PBXBuildFile section */
@@ -61,6 +62,8 @@
 		4919E20C1EE5CB5A0022F44D /* FollowMeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FollowMeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4919E2101EE5CB5A0022F44D /* FollowMeUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FollowMeUITests.m; sourceTree = "<group>"; };
 		4919E2121EE5CB5A0022F44D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4919E21F1EE5D1930022F44D /* FollowMe-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FollowMe-Bridging-Header.h"; sourceTree = "<group>"; };
+		4919E2201EE5D1930022F44D /* MapApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapApi.swift; sourceTree = "<group>"; };
 		55E013DCDD749CF8FEEB60BE /* Pods-FollowMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FollowMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-FollowMe/Pods-FollowMe.release.xcconfig"; sourceTree = "<group>"; };
 		6279B7F0419CC23C7AF4C56D /* Pods_FollowMeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FollowMeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71D778EDAA4E6156092BD58D /* Pods-FollowMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FollowMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FollowMe/Pods-FollowMe.debug.xcconfig"; sourceTree = "<group>"; };
@@ -120,6 +123,8 @@
 		4919E1E71EE5CB590022F44D /* FollowMe */ = {
 			isa = PBXGroup;
 			children = (
+				4919E21F1EE5D1930022F44D /* FollowMe-Bridging-Header.h */,
+				4919E21E1EE5D16F0022F44D /* Map */,
 				4919E1EB1EE5CB590022F44D /* AppDelegate.h */,
 				4919E1EC1EE5CB590022F44D /* AppDelegate.m */,
 				4919E1EE1EE5CB590022F44D /* PathViewController.h */,
@@ -158,6 +163,14 @@
 				4919E2121EE5CB5A0022F44D /* Info.plist */,
 			);
 			path = FollowMeUITests;
+			sourceTree = "<group>";
+		};
+		4919E21E1EE5D16F0022F44D /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				4919E2201EE5D1930022F44D /* MapApi.swift */,
+			);
+			name = Map;
 			sourceTree = "<group>";
 		};
 		52EC9B5C2AF00ACD846F598C /* Frameworks */ = {
@@ -260,6 +273,7 @@
 					4919E1E41EE5CB590022F44D = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = 5AF65X34YK;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					4919E2001EE5CB590022F44D = {
@@ -470,6 +484,7 @@
 				4919E1ED1EE5CB590022F44D /* AppDelegate.m in Sources */,
 				4919E1F61EE5CB590022F44D /* FollowMe.xcdatamodeld in Sources */,
 				4919E1EA1EE5CB590022F44D /* main.m in Sources */,
+				4919E2211EE5D1930022F44D /* MapApi.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -619,11 +634,15 @@
 			baseConfigurationReference = 71D778EDAA4E6156092BD58D /* Pods-FollowMe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 5AF65X34YK;
 				INFOPLIST_FILE = FollowMe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stepwise.followme;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FollowMe/FollowMe-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -632,11 +651,14 @@
 			baseConfigurationReference = 55E013DCDD749CF8FEEB60BE /* Pods-FollowMe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 5AF65X34YK;
 				INFOPLIST_FILE = FollowMe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.stepwise.followme;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FollowMe/FollowMe-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -644,6 +666,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3E17023DCA639E14D09DCE63 /* Pods-FollowMeTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 5AF65X34YK;
 				INFOPLIST_FILE = FollowMeTests/Info.plist;
@@ -658,6 +681,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0827C5DAECE036C68EA6313B /* Pods-FollowMeTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 5AF65X34YK;
 				INFOPLIST_FILE = FollowMeTests/Info.plist;
@@ -672,6 +696,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2E289B27C5833281FDD773FE /* Pods-FollowMeUITests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 5AF65X34YK;
 				INFOPLIST_FILE = FollowMeUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -685,6 +710,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1D389D41A3C34E2300CEBD17 /* Pods-FollowMeUITests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 5AF65X34YK;
 				INFOPLIST_FILE = FollowMeUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";

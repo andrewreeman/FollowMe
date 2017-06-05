@@ -7,6 +7,8 @@
 //
 
 #import "PathViewController.h"
+#import "AppDelegate.h"
+@import GoogleMaps;
 
 @interface PathViewController ()
 
@@ -14,9 +16,14 @@
 
 @implementation PathViewController
 
+MapApi* m_mapApi;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    m_mapApi = [AppDelegate getApp].mapApi;
+    GMSMapView* map = [m_mapApi createMap];
+    self.view = (UIView*)map;      
 }
 
 

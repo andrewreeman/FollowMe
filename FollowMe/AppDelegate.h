@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import "FollowMe-Swift.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -15,7 +16,12 @@
 
 @property (readonly, strong) NSPersistentContainer *persistentContainer;
 
+@property (strong) MapApi *mapApi;
+
+
++ (AppDelegate*) getApp;
 - (void)saveContext;
+
 
 
 @end
