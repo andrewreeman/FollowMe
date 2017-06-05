@@ -6,13 +6,13 @@
 //  Copyright © 2017 Stepwise. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "PathViewController.h"
 
-@interface ViewController ()
+@interface PathViewController ()
 
 @end
 
-@implementation ViewController
+@implementation PathViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
