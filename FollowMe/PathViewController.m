@@ -23,6 +23,9 @@ MapApi* m_mapApi;
     
     m_mapApi = [AppDelegate getApp].mapApi;
     GMSMapView* map = [m_mapApi createMap];
+    map.myLocationEnabled = true;
+    
+    
     self.view = (UIView*)map;      
 }
 

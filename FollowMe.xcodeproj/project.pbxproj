@@ -18,6 +18,7 @@
 		4919E2061EE5CB5A0022F44D /* FollowMeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4919E2051EE5CB5A0022F44D /* FollowMeTests.m */; };
 		4919E2111EE5CB5A0022F44D /* FollowMeUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4919E2101EE5CB5A0022F44D /* FollowMeUITests.m */; };
 		4919E2211EE5D1930022F44D /* MapApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4919E2201EE5D1930022F44D /* MapApi.swift */; };
+		4919E2241EE5E1A40022F44D /* LocationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4919E2231EE5E1A40022F44D /* LocationDelegate.m */; };
 		78634F96DA18BBC50ECE3812 /* Pods_FollowMeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B5588E94DE8DFE5AB8A21C7 /* Pods_FollowMeTests.framework */; };
 		98DF1EDA3BF9E000623EFDE1 /* Pods_FollowMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF1D1A6D0DF0AD3B9525FEF /* Pods_FollowMe.framework */; };
 /* End PBXBuildFile section */
@@ -64,6 +65,9 @@
 		4919E2121EE5CB5A0022F44D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4919E21F1EE5D1930022F44D /* FollowMe-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FollowMe-Bridging-Header.h"; sourceTree = "<group>"; };
 		4919E2201EE5D1930022F44D /* MapApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapApi.swift; sourceTree = "<group>"; };
+		4919E2231EE5E1A40022F44D /* LocationDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDelegate.m; sourceTree = "<group>"; };
+		4919E2251EE5E1B10022F44D /* LocationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationDelegate.h; sourceTree = "<group>"; };
+		4919E2271EE5EDC60022F44D /* Presenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Presenter.h; sourceTree = "<group>"; };
 		55E013DCDD749CF8FEEB60BE /* Pods-FollowMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FollowMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-FollowMe/Pods-FollowMe.release.xcconfig"; sourceTree = "<group>"; };
 		6279B7F0419CC23C7AF4C56D /* Pods_FollowMeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FollowMeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71D778EDAA4E6156092BD58D /* Pods-FollowMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FollowMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FollowMe/Pods-FollowMe.debug.xcconfig"; sourceTree = "<group>"; };
@@ -123,18 +127,20 @@
 		4919E1E71EE5CB590022F44D /* FollowMe */ = {
 			isa = PBXGroup;
 			children = (
+				4919E2261EE5EDAF0022F44D /* PresentationProtocols */,
 				4919E21F1EE5D1930022F44D /* FollowMe-Bridging-Header.h */,
+				4919E2221EE5E1590022F44D /* ViewControllers */,
 				4919E21E1EE5D16F0022F44D /* Map */,
 				4919E1EB1EE5CB590022F44D /* AppDelegate.h */,
 				4919E1EC1EE5CB590022F44D /* AppDelegate.m */,
-				4919E1EE1EE5CB590022F44D /* PathViewController.h */,
-				4919E1EF1EE5CB590022F44D /* PathViewController.m */,
 				4919E1F11EE5CB590022F44D /* Main.storyboard */,
 				4919E1F71EE5CB590022F44D /* Assets.xcassets */,
 				4919E1F91EE5CB590022F44D /* LaunchScreen.storyboard */,
 				4919E1FC1EE5CB590022F44D /* Info.plist */,
 				4919E1F41EE5CB590022F44D /* FollowMe.xcdatamodeld */,
 				4919E1E81EE5CB590022F44D /* Supporting Files */,
+				4919E2231EE5E1A40022F44D /* LocationDelegate.m */,
+				4919E2251EE5E1B10022F44D /* LocationDelegate.h */,
 			);
 			path = FollowMe;
 			sourceTree = "<group>";
@@ -171,6 +177,23 @@
 				4919E2201EE5D1930022F44D /* MapApi.swift */,
 			);
 			name = Map;
+			sourceTree = "<group>";
+		};
+		4919E2221EE5E1590022F44D /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				4919E1EE1EE5CB590022F44D /* PathViewController.h */,
+				4919E1EF1EE5CB590022F44D /* PathViewController.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		4919E2261EE5EDAF0022F44D /* PresentationProtocols */ = {
+			isa = PBXGroup;
+			children = (
+				4919E2271EE5EDC60022F44D /* Presenter.h */,
+			);
+			name = PresentationProtocols;
 			sourceTree = "<group>";
 		};
 		52EC9B5C2AF00ACD846F598C /* Frameworks */ = {
@@ -481,6 +504,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4919E1F01EE5CB590022F44D /* PathViewController.m in Sources */,
+				4919E2241EE5E1A40022F44D /* LocationDelegate.m in Sources */,
 				4919E1ED1EE5CB590022F44D /* AppDelegate.m in Sources */,
 				4919E1F61EE5CB590022F44D /* FollowMe.xcdatamodeld in Sources */,
 				4919E1EA1EE5CB590022F44D /* main.m in Sources */,
