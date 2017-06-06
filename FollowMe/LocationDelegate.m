@@ -13,7 +13,7 @@
 
 @implementation LocationDelegate    
     CLLocationManager *m_manager;
-    NSObject<Presenter> *m_presenter;
+    NSObject<LocationMessagePresenter> *m_presenter;
     LocationUpdatedListener m_locationUpdatedListener;
 
 
@@ -39,7 +39,7 @@
 
 
 // MARK: public methods
--(void)setPresenter:(NSObject<Presenter> *)presenter {
+-(void)setPresenter:(NSObject<LocationMessagePresenter> *)presenter {
     m_presenter = presenter;
 }
 
@@ -69,6 +69,9 @@
     }    
 }
 
+/**
+ The location updated listener will be called every time a new location is found
+*/
 -(void)setLocationUpdatedListener:(LocationUpdatedListener)listener {
     m_locationUpdatedListener = listener;
 }

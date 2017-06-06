@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LocationDelegate.h"
 
-@interface PathViewController : UIViewController
+@interface PathViewController : UIViewController<LocationMessagePresenter>
 
 
 @end

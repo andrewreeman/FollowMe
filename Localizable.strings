@@ -1,0 +1,6 @@
+"locationRestricted" = "Location services are restricted.";
+"locationDenied" = "Location services have been denied. Please authorize to be able to use this app";
+"locationDisabled" = "Location services are currently disabled. Please turn them on in the phone settings menu";
+
+"followMe" = "FollowMe";
+"ok" = "OK";

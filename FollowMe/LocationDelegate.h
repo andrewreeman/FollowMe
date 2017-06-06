@@ -14,7 +14,7 @@
 
 @class LocationDelegate;
 
-@protocol Presenter <NSObject>
+@protocol LocationMessagePresenter <NSObject>
 
 -(void)present:(NSString*)message FromLocationDelegate: (LocationDelegate*)delegate;
 
@@ -29,7 +29,7 @@ typedef enum LocationUsages {
 } LocationUsage;
 
 
--(void)setPresenter:(NSObject<Presenter>*)presenter;
+-(void)setPresenter:(NSObject<LocationMessagePresenter>*)presenter;
 -(void)setLocationUpdatedListener:(LocationUpdatedListener)listener;
 -(void)startUpdatingLocation:(LocationUsage)usage;
 -(void)checkAuthorisation:(LocationUsage)usage;

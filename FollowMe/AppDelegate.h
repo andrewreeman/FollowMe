@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 #import "FollowMe-Swift.h"
+#import "LocationDelegate.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -17,12 +18,12 @@
 @property (readonly, strong) NSPersistentContainer *persistentContainer;
 
 @property (strong) MapApi *mapApi;
-
+//@property (strong) LocationDelegate *locationDelegate;
+@property (strong) LocationUpdatedInteractor* locationUpdatedInteractor;
 
 + (AppDelegate*) getApp;
 - (void)saveContext;
-
-
+-(void)startLocationUpdatesUsingPresenter: (NSObject<LocationMessagePresenter>*)presenter;
 
 @end
 

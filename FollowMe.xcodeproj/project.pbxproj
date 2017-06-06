@@ -19,8 +19,9 @@
 		4919E2111EE5CB5A0022F44D /* FollowMeUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4919E2101EE5CB5A0022F44D /* FollowMeUITests.m */; };
 		4919E2211EE5D1930022F44D /* MapApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4919E2201EE5D1930022F44D /* MapApi.swift */; };
 		4919E2241EE5E1A40022F44D /* LocationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4919E2231EE5E1A40022F44D /* LocationDelegate.m */; };
-		4919E2291EE5EFF20022F44D /* Localized.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4919E2281EE5EFF20022F44D /* Localized.strings */; };
 		4919E22E1EE5F1560022F44D /* NSString+StringExtensions_m.m in Sources */ = {isa = PBXBuildFile; fileRef = 4919E22D1EE5F1560022F44D /* NSString+StringExtensions_m.m */; };
+		492DD7E81EE74268007671AE /* LocationUpdatedInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492DD7E71EE74268007671AE /* LocationUpdatedInteractor.swift */; };
+		497748BD1EE74F0700A50CD9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 497748BC1EE74F0700A50CD9 /* Localizable.strings */; };
 		49B8AB5F1EE5F36600376D16 /* NSArray+ArrayExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B8AB5E1EE5F36600376D16 /* NSArray+ArrayExtensions.m */; };
 		78634F96DA18BBC50ECE3812 /* Pods_FollowMeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B5588E94DE8DFE5AB8A21C7 /* Pods_FollowMeTests.framework */; };
 		98DF1EDA3BF9E000623EFDE1 /* Pods_FollowMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF1D1A6D0DF0AD3B9525FEF /* Pods_FollowMe.framework */; };
@@ -70,9 +71,12 @@
 		4919E2201EE5D1930022F44D /* MapApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapApi.swift; sourceTree = "<group>"; };
 		4919E2231EE5E1A40022F44D /* LocationDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationDelegate.m; sourceTree = "<group>"; };
 		4919E2251EE5E1B10022F44D /* LocationDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocationDelegate.h; sourceTree = "<group>"; };
-		4919E2281EE5EFF20022F44D /* Localized.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localized.strings; sourceTree = "<group>"; };
 		4919E22C1EE5F1560022F44D /* NSString+StringExtensions_m.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StringExtensions_m.h"; sourceTree = "<group>"; };
 		4919E22D1EE5F1560022F44D /* NSString+StringExtensions_m.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+StringExtensions_m.m"; sourceTree = "<group>"; };
+		492DD7E71EE74268007671AE /* LocationUpdatedInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationUpdatedInteractor.swift; sourceTree = "<group>"; };
+		497748B41EE74A3800A50CD9 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Main.strings"; sourceTree = "<group>"; };
+		497748B51EE74A3900A50CD9 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		497748BC1EE74F0700A50CD9 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		49B8AB5D1EE5F36600376D16 /* NSArray+ArrayExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+ArrayExtensions.h"; sourceTree = "<group>"; };
 		49B8AB5E1EE5F36600376D16 /* NSArray+ArrayExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+ArrayExtensions.m"; sourceTree = "<group>"; };
 		55E013DCDD749CF8FEEB60BE /* Pods-FollowMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FollowMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-FollowMe/Pods-FollowMe.release.xcconfig"; sourceTree = "<group>"; };
@@ -112,7 +116,7 @@
 		4919E1DC1EE5CB590022F44D = {
 			isa = PBXGroup;
 			children = (
-				4919E2281EE5EFF20022F44D /* Localized.strings */,
+				497748BC1EE74F0700A50CD9 /* Localizable.strings */,
 				4919E1E71EE5CB590022F44D /* FollowMe */,
 				4919E2041EE5CB5A0022F44D /* FollowMeTests */,
 				4919E20F1EE5CB5A0022F44D /* FollowMeUITests */,
@@ -135,6 +139,7 @@
 		4919E1E71EE5CB590022F44D /* FollowMe */ = {
 			isa = PBXGroup;
 			children = (
+				492DD7E61EE7424C007671AE /* Interactors */,
 				4919E22A1EE5F0B80022F44D /* Extensions */,
 				4919E21F1EE5D1930022F44D /* FollowMe-Bridging-Header.h */,
 				4919E2221EE5E1590022F44D /* ViewControllers */,
@@ -205,6 +210,14 @@
 				49B8AB5E1EE5F36600376D16 /* NSArray+ArrayExtensions.m */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		492DD7E61EE7424C007671AE /* Interactors */ = {
+			isa = PBXGroup;
+			children = (
+				492DD7E71EE74268007671AE /* LocationUpdatedInteractor.swift */,
+			);
+			name = Interactors;
 			sourceTree = "<group>";
 		};
 		52EC9B5C2AF00ACD846F598C /* Frameworks */ = {
@@ -349,8 +362,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4919E2291EE5EFF20022F44D /* Localized.strings in Resources */,
 				4919E1FB1EE5CB590022F44D /* LaunchScreen.storyboard in Resources */,
+				497748BD1EE74F0700A50CD9 /* Localizable.strings in Resources */,
 				4919E1F81EE5CB590022F44D /* Assets.xcassets in Resources */,
 				4919E1F31EE5CB590022F44D /* Main.storyboard in Resources */,
 			);
@@ -521,6 +534,7 @@
 				4919E1ED1EE5CB590022F44D /* AppDelegate.m in Sources */,
 				4919E1F61EE5CB590022F44D /* FollowMe.xcdatamodeld in Sources */,
 				4919E1EA1EE5CB590022F44D /* main.m in Sources */,
+				492DD7E81EE74268007671AE /* LocationUpdatedInteractor.swift in Sources */,
 				49B8AB5F1EE5F36600376D16 /* NSArray+ArrayExtensions.m in Sources */,
 				4919E2211EE5D1930022F44D /* MapApi.swift in Sources */,
 			);
@@ -562,6 +576,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4919E1F21EE5CB590022F44D /* Base */,
+				497748B41EE74A3800A50CD9 /* en-GB */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -570,6 +585,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				4919E1FA1EE5CB590022F44D /* Base */,
+				497748B51EE74A3900A50CD9 /* en-GB */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -581,6 +597,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -629,6 +646,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";

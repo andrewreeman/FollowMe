@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "NSString+StringExtensions_m.h"
 
 @interface AppDelegate ()
 
@@ -14,6 +15,7 @@
 
 @implementation AppDelegate
 
+LocationDelegate* m_locationDelegate;
 
 +(AppDelegate*)getApp {
     return (AppDelegate*)[UIApplication sharedApplication].delegate;
@@ -22,7 +24,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    
+    
     self.mapApi = [[MapApi alloc]init];
+    self.locationUpdatedInteractor = [[LocationUpdatedInteractor alloc]init];
+    m_locationDelegate = [[LocationDelegate alloc]init];
+    
     return YES;
 }
 
@@ -99,6 +106,14 @@
         NSLog(@"Unresolved error %@, %@", error, error.userInfo);
         abort();
     }
+}
+
+//MARK: public methods
+-(void)startLocationUpdatesUsingPresenter: (NSObject<LocationMessagePresenter>*)presenter               
+{
+    [m_locationDelegate setPresenter:presenter];
+    [m_locationDelegate setLocationUpdatedListener:[[self locationUpdatedInteractor] locationUpdated]];
+    [m_locationDelegate startUpdatingLocation:[[self locationUpdatedInteractor] locationUsage]];
 }
 
 @end

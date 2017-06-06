@@ -10,7 +10,7 @@
 
 @implementation NSString (StringExtensions_m)
 
--(NSString*)localized {
+-(NSString*)localized {    
     return NSLocalizedString(self, "");
 }
 
