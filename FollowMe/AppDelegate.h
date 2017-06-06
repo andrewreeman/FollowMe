@@ -23,7 +23,7 @@
 
 + (AppDelegate*) getApp;
 - (void)saveContext;
--(void)startLocationUpdatesUsingPresenter: (NSObject<LocationMessagePresenter>*)presenter;
+-(void)startLocationUpdatesUsingPresenter: (NSObject<LocationMessagePresenter>*)presenter AndUiLocationUpdateListener: (LocationUpdatedListener)locationUiUpdateListener;
 
 @end
 

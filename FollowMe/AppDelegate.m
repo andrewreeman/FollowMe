@@ -109,8 +109,10 @@ LocationDelegate* m_locationDelegate;
 }
 
 //MARK: public methods
--(void)startLocationUpdatesUsingPresenter: (NSObject<LocationMessagePresenter>*)presenter               
+-(void)startLocationUpdatesUsingPresenter: (NSObject<LocationMessagePresenter>*)presenter
+    AndUiLocationUpdateListener: (LocationUpdatedListener)locationUiUpdateListener
 {
+    [self locationUpdatedInteractor].locationUpdatedListener = locationUiUpdateListener;
     [m_locationDelegate setPresenter:presenter];
     [m_locationDelegate setLocationUpdatedListener:[[self locationUpdatedInteractor] locationUpdated]];
     [m_locationDelegate startUpdatingLocation:[[self locationUpdatedInteractor] locationUsage]];

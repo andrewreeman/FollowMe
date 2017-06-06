@@ -38,6 +38,12 @@
 	</array>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>We need the use of location to impress people</string>
+    
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>googlechromes</string>
+        <string>comgooglemaps</string>
+    </array>
         
 </dict>
 </plist>

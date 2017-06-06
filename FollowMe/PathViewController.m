@@ -26,12 +26,14 @@ MapApi* m_mapApi;
     AppDelegate* app = [AppDelegate getApp];
     
     m_mapApi = app.mapApi;
-    GMSMapView* map = [m_mapApi createMap];
-    map.myLocationEnabled = true;
-    [app startLocationUpdatesUsingPresenter:self];
-    //[app.locationDelegate setPresenter:self];
+    GMSMapView* map = [m_mapApi createMap];    
     
-//    app.locationDelegate startUpdatingLocation:<#(LocationUsage)#>
+    [app startLocationUpdatesUsingPresenter:self AndUiLocationUpdateListener:^(CLLocation *location) {
+        if(location != NULL) {
+            [m_mapApi updateWithMap:map ToLocation:location];
+        }
+    }];
+    
     
     self.view = (UIView*)map;      
 }

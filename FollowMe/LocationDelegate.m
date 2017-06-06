@@ -78,7 +78,7 @@
 
 -(void)startUpdatingLocation:(LocationUsage)usage {
     [self checkAuthorisation:usage];
-    [m_manager startUpdatingHeading];
+    [m_manager startUpdatingLocation];
 }
 
 // MARK: CLLocationManagerDelegate methods
@@ -101,6 +101,7 @@
 -(void)locationManager:(CLLocationManager *)manager
     didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
+    NSLog(@"Updated location");
     CLLocation* mostRecentLocation = [locations lastObject];
     if( mostRecentLocation != NULL && m_locationUpdatedListener != NULL ){
         m_locationUpdatedListener(mostRecentLocation);
