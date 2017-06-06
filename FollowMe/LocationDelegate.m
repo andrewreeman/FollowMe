@@ -8,15 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "LocationDelegate.h"
+#import "NSString+StringExtensions_m.m"
+#import "NSArray+ArrayExtensions.h"
 
-@implementation LocationDelegate
-    typedef enum LocationUsages {
-        ALWAYS,
-        IN_APP
-    } LocationUsage;
-
+@implementation LocationDelegate    
     CLLocationManager *m_manager;
     NSObject<Presenter> *m_presenter;
+    LocationUpdatedListener m_locationUpdatedListener;
 
 
     // start updating location
@@ -39,14 +37,20 @@
     return self;
 }
 
--(void)startUpdatingLocation:(LocationUsage)usage {
+
+// MARK: public methods
+-(void)setPresenter:(NSObject<Presenter> *)presenter {
+    m_presenter = presenter;
+}
+
+-(void)checkAuthorisation:(LocationUsage)usage {
     if (![CLLocationManager locationServicesEnabled]) {
-        NSLog(@"Please enable location services");
+        [self displayLocationDisabledMessage];
         return;
     }
     
     if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) {
-        NSLog(@"Please authorize location services");
+        [self displayLocationDeniedMessage];
         return;
     }
     
@@ -62,7 +66,15 @@
                 [m_manager requestAlwaysAuthorization];
             }
         }
-    }
+    }    
+}
+
+-(void)setLocationUpdatedListener:(LocationUpdatedListener)listener {
+    m_locationUpdatedListener = listener;
+}
+
+-(void)startUpdatingLocation:(LocationUsage)usage {
+    [self checkAuthorisation:usage];
     [m_manager startUpdatingHeading];
 }
 
@@ -72,9 +84,37 @@
         case kCLAuthorizationStatusAuthorizedAlways:
         case kCLAuthorizationStatusAuthorizedWhenInUse:
             break;
+        case kCLAuthorizationStatusRestricted:
+            [self displayLocationRestrictedMessage];
+            break;
+        case kCLAuthorizationStatusDenied:
+            [self displayLocationDeniedMessage];
+            break;
         default:
             break;
     }
+}
+
+-(void)locationManager:(CLLocationManager *)manager
+    didUpdateLocations:(NSArray<CLLocation *> *)locations
+{
+    CLLocation* mostRecentLocation = [locations lastObject];
+    if( mostRecentLocation != NULL && m_locationUpdatedListener != NULL ){
+        m_locationUpdatedListener(mostRecentLocation);
+    }
+}
+
+// MARK: private methods
+- (void)displayLocationRestrictedMessage {
+    [m_presenter present:[@"locationRestricted" localized] FromLocationDelegate:self];
+}
+
+-(void)displayLocationDeniedMessage {
+    [m_presenter present:[@"locationDenied" localized] FromLocationDelegate:self];
+}
+
+-(void)displayLocationDisabledMessage {
+    [m_presenter present:[@"locationDisabled" localized] FromLocationDelegate:self];
 }
 
 @end

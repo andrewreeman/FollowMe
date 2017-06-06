@@ -10,12 +10,29 @@
 #define LocationDelegate_h
 
 #import <CoreLocation/CoreLocation.h>
-#import "Presenter.h"
+//#import "Presenter.h"
+
+@class LocationDelegate;
+
+@protocol Presenter <NSObject>
+
+-(void)present:(NSString*)message FromLocationDelegate: (LocationDelegate*)delegate;
+
+@end
 
 @interface LocationDelegate : NSObject<CLLocationManagerDelegate>
 
--(void)setPresenter:(NSObject<Presenter>*)presenter;
+typedef void (^LocationUpdatedListener) (CLLocation* location);
+typedef enum LocationUsages {
+    ALWAYS,
+    IN_APP
+} LocationUsage;
 
+
+-(void)setPresenter:(NSObject<Presenter>*)presenter;
+-(void)setLocationUpdatedListener:(LocationUpdatedListener)listener;
+-(void)startUpdatingLocation:(LocationUsage)usage;
+-(void)checkAuthorisation:(LocationUsage)usage;
 @end
 
 #endif /* LocationDelegate_h */
