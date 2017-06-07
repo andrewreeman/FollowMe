@@ -4,3 +4,5 @@
 
 "followMe" = "FollowMe";
 "ok" = "OK";
+"trackingOn" = "Tracking...";
+"trackingOff" = "Start tracking";

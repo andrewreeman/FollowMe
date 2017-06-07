@@ -38,6 +38,8 @@ import Foundation
         return IN_APP;
     }
     
+    
+    
     private func update(ToNewLocation newLocation: CLLocation) {
         guard let currentLocation = m_currentLocation
         else

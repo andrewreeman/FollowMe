@@ -11,6 +11,7 @@
 #import "FollowMe-Swift.h"
 #import "LocationDelegate.h"
 
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
@@ -20,10 +21,12 @@
 @property (strong) MapApi *mapApi;
 //@property (strong) LocationDelegate *locationDelegate;
 @property (strong) LocationUpdatedInteractor* locationUpdatedInteractor;
+@property (strong) LocationTrackingInteractor* locationTrackingInteractor;
 
 + (AppDelegate*) getApp;
 - (void)saveContext;
 -(void)startLocationUpdatesUsingPresenter: (NSObject<LocationMessagePresenter>*)presenter AndUiLocationUpdateListener: (LocationUpdatedListener)locationUiUpdateListener;
+-(void)startListeningToTrackingStateUsing:(void(^)(TrackingState)) newTrackingState;
 
 @end
 

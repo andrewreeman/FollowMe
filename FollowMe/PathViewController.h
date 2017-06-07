@@ -13,5 +13,7 @@
 
 @interface PathViewController : UIViewController<LocationMessagePresenter>
     @property (nonnull, nonatomic) IBOutlet UIView* switchContainer;
+    @property (nonnull, nonatomic) IBOutlet UILabel* trackingLabel;
+    @property (nonnull, nonatomic) IBOutlet UISwitch* trackingSwitch;
 @end
 

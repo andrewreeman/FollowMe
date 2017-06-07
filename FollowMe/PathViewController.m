@@ -18,25 +18,20 @@
 
 MapApi* m_mapApi;
 
+
+// MARK: overloads
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // init map
     AppDelegate* app = [AppDelegate getApp];
-    
     m_mapApi = app.mapApi;
     GMSMapView* map = [m_mapApi createMapWithFrame: self.view.frame];
-    
-    [app startLocationUpdatesUsingPresenter:self AndUiLocationUpdateListener:^(CLLocation *location) {
-        if(location != NULL) {
-            [m_mapApi updateWithMap:map ToLocation:location];
-        }
-    }];
     map.center = self.view.center;
     [self.view addSubview:map];
     [self.view sendSubviewToBack:map];
  
     // init switch container
-    
     UIColor* borderColor = [UIColor colorWithRed:117.0/255.0
                                            green:117.0/255.0
                                             blue:117.0/255.0
@@ -45,7 +40,27 @@ MapApi* m_mapApi;
     
     [[self.switchContainer layer]setBorderColor: borderColor.CGColor];
     [[self.switchContainer layer]setBorderWidth:1.0];
-    //self.view = map;
+    
+    
+    // init tracking
+    [app.locationTrackingInteractor clearTrackingStateListeners];
+    [app.locationTrackingInteractor addWithTrackingStateListener:^(enum TrackingState newTrackingState)
+     {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self trackingStateUpdated:newTrackingState];
+        });
+    }];
+    
+    // start location updates
+    [app startLocationUpdatesUsingPresenter:self AndUiLocationUpdateListener:^(CLLocation *location) {
+        if(location != NULL) {
+            [m_mapApi updateWithMap:map ToLocation:location];
+        }
+    }];
+    
+    // ensure tracking is off and refresh tracking state
+    [[self trackingSwitch]setOn:NO];
+    [self trackingToggleChanged:[self trackingSwitch]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,6 +68,13 @@ MapApi* m_mapApi;
     // Dispose of any resources that can be recreated.
 }
 
+// MARK: outlets
+-(IBAction)trackingToggleChanged:(UISwitch*)sender {
+    TrackingState newState = sender.isOn ? TrackingStateTrackingOn : TrackingStateTrackingOff;
+    [[[AppDelegate getApp]locationTrackingInteractor]updateTrackingWithNewState:newState];
+}
+
+// MARK: LocationMessagePresenter methods
 -(void)present:(NSString*)message FromLocationDelegate: (LocationDelegate*)delegate {
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:[@"followMe" localized] message:message preferredStyle:UIAlertControllerStyleAlert];
     
@@ -63,6 +85,18 @@ MapApi* m_mapApi;
     
     [alert addAction:ok];    
     [self presentViewController:alert animated:true completion: nil];
+}
+
+// MARK: private methods
+-(void)trackingStateUpdated:(TrackingState)newTrackingState {
+    switch(newTrackingState) {
+        case TrackingStateTrackingOn:
+            [[self trackingLabel]setText:[@"trackingOn" localized]];
+            break;
+        case TrackingStateTrackingOff:
+            [[self trackingLabel]setText:[@"trackingOff" localized]];
+            break;
+    };
 }
 
 

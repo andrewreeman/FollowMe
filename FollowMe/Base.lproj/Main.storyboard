@@ -13,7 +13,7 @@
         <scene sceneID="Huw-Kx-7i8">
             <objects>
                 <navigationController id="y2R-M5-bWR" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="lqO-OC-nTG">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lqO-OC-nTG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -50,6 +50,9 @@
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="of2-yk-g6i">
                                         <rect key="frame" x="45" y="29" width="51" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <action selector="trackingToggleChanged:" destination="dWq-oT-afj" eventType="valueChanged" id="s7W-L3-X17"/>
+                                        </connections>
                                     </switch>
                                 </subviews>
                                 <color key="backgroundColor" red="0.91764705882352937" green="0.91764705882352937" blue="0.91764705882352937" alpha="1" colorSpace="calibratedRGB"/>
@@ -68,6 +71,8 @@
                     <navigationItem key="navigationItem" id="yEY-dY-Bxj"/>
                     <connections>
                         <outlet property="switchContainer" destination="2ke-Wf-Ez9" id="EdI-p4-Vj6"/>
+                        <outlet property="trackingLabel" destination="5NG-WF-6lj" id="aR9-ps-dEe"/>
+                        <outlet property="trackingSwitch" destination="of2-yk-g6i" id="7cK-O8-4Qh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uVP-rT-OXG" userLabel="First Responder" sceneMemberID="firstResponder"/>

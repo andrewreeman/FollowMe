@@ -28,6 +28,7 @@ LocationDelegate* m_locationDelegate;
     
     self.mapApi = [[MapApi alloc]init];
     self.locationUpdatedInteractor = [[LocationUpdatedInteractor alloc]init];
+    self.locationTrackingInteractor = [[LocationTrackingInteractor alloc]init];
     m_locationDelegate = [[LocationDelegate alloc]init];
     
     return YES;
@@ -116,6 +117,12 @@ LocationDelegate* m_locationDelegate;
     [m_locationDelegate setPresenter:presenter];
     [m_locationDelegate setLocationUpdatedListener:[[self locationUpdatedInteractor] locationUpdated]];
     [m_locationDelegate startUpdatingLocation:[[self locationUpdatedInteractor] locationUsage]];
+}
+
+-(void)startListeningToTrackingStateUsing:(void(^)(TrackingState)) newTrackingState {
+    [[self locationTrackingInteractor] clearTrackingStateListeners];
+    [[self locationTrackingInteractor] addWithTrackingStateListener:newTrackingState];
+    
 }
 
 @end
