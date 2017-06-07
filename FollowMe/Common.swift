@@ -25,3 +25,15 @@ func =?<T>(left: inout T, right: T?) {
         left = right!
     }
 }
+
+extension CLLocationCoordinate2D {
+    var clLocation: CLLocation {
+        return CLLocation.init(latitude: self.latitude, longitude: self.longitude)
+    }
+    
+    func distance(From: CLLocationCoordinate2D) -> CLLocationDistance {
+        return self.clLocation.distance(from: From.clLocation)
+    }
+    
+    
+}

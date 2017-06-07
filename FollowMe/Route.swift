@@ -61,6 +61,7 @@ struct RouteEntry {
         return SerializableRouteEntry.init(FromRouteEntry: self)
     }
     
+    
     init(FromSerializable: SerializableRouteEntry) {
         self.time = FromSerializable.time
         self.location = CLLocationCoordinate2D.init(
@@ -115,9 +116,17 @@ class Route {
     
     
     // MARK: private methods
-    private func calculateDistance() -> Int {
-        // todo: work out distance
-        return 0
+    private func calculateDistance() -> Int  {                        
+        let calculationResult = self.m_path.map{$0.location}.reduce((0.0, nil))
+        { (distanceAndPrevious: (CLLocationDistance, CLLocationCoordinate2D?), currentEntry) in
+           
+            guard let previousRouteEntry = distanceAndPrevious.1
+            else { return (0.0, currentEntry) }
+            
+            let newDistance = previousRouteEntry.distance(From: currentEntry)
+            return (newDistance, currentEntry)
+        }
+        return Int(calculationResult.0)
     }
     
 }
