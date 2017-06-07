@@ -43,16 +43,17 @@ MapApi* m_mapApi;
     
     
     // init tracking
-    [app.locationTrackingInteractor clearTrackingStateListeners];
-    [app.locationTrackingInteractor addWithTrackingStateListener:^(enum TrackingState newTrackingState)
-     {
+    [app startListeningToTrackingStateUsing:^(TrackingState newTrackingState) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self trackingStateUpdated:newTrackingState];
         });
     }];
     
+    
     // start location updates
-    [app startLocationUpdatesUsingPresenter:self AndUiLocationUpdateListener:^(CLLocation *location) {
+    [app startLocationUpdatesUsingPresenter:self AndUiLocationUpdateListener:^
+     (CLLocation *location, TrackingState trackingState)
+    {
         if(location != NULL) {
             [m_mapApi updateWithMap:map ToLocation:location];
         }
@@ -61,11 +62,6 @@ MapApi* m_mapApi;
     // ensure tracking is off and refresh tracking state
     [[self trackingSwitch]setOn:NO];
     [self trackingToggleChanged:[self trackingSwitch]];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 // MARK: outlets
@@ -94,6 +90,9 @@ MapApi* m_mapApi;
             [[self trackingLabel]setText:[@"trackingOn" localized]];
             break;
         case TrackingStateTrackingOff:
+            [[self trackingLabel]setText:[@"trackingOff" localized]];
+            break;
+        case TrackingStateTrackingUndefined:
             [[self trackingLabel]setText:[@"trackingOff" localized]];
             break;
     };

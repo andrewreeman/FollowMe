@@ -110,19 +110,34 @@ LocationDelegate* m_locationDelegate;
 }
 
 //MARK: public methods
--(void)startLocationUpdatesUsingPresenter: (NSObject<LocationMessagePresenter>*)presenter
-    AndUiLocationUpdateListener: (LocationUpdatedListener)locationUiUpdateListener
+-(void)startLocationUpdatesUsingPresenter: (NSObject<LocationMessagePresenter>*)presenter AndUiLocationUpdateListener:  (void(^)(CLLocation*, TrackingState))locationUiUpdateListener
 {
+    
     [self locationUpdatedInteractor].locationUpdatedListener = locationUiUpdateListener;
     [m_locationDelegate setPresenter:presenter];
     [m_locationDelegate setLocationUpdatedListener:[[self locationUpdatedInteractor] locationUpdated]];
-    [m_locationDelegate startUpdatingLocation:[[self locationUpdatedInteractor] locationUsage]];
+    [self startUpdatingLocation];
 }
 
 -(void)startListeningToTrackingStateUsing:(void(^)(TrackingState)) newTrackingState {
     [[self locationTrackingInteractor] clearTrackingStateListeners];
+    
+    // add tracking state listeners
     [[self locationTrackingInteractor] addWithTrackingStateListener:newTrackingState];
     
+    [[self locationTrackingInteractor] addWithTrackingStateListener:
+     [[self locationUpdatedInteractor] trackingStateListener]
+    ];
+    
+    [[self locationTrackingInteractor] addWithTrackingStateListener:^(enum TrackingState newState) {
+        [self startUpdatingLocation];
+    }];
+}
+
+// MARK: private methods
+
+-(void)startUpdatingLocation {
+    [m_locationDelegate startUpdatingLocation:[[self locationUpdatedInteractor] locationUsage]];
 }
 
 @end

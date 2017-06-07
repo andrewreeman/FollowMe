@@ -36,8 +36,7 @@ fileprivate let API_KEY = "AIzaSyCX1gLWDC5ZsiXqUr6oEhGfmHlLm5tQWNY"
         return map
     }
     
-    func update(Map: GMSMapView, ToLocation location: CLLocation) {
-        print("Updating map to location: \(location)")
+    func update(Map: GMSMapView, ToLocation location: CLLocation) {        
         let updateCamera = GMSCameraUpdate.setTarget(location.coordinate, zoom: 15)
         Map.moveCamera(updateCamera)
     }

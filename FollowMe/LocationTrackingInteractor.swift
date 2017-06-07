@@ -17,10 +17,12 @@ import Foundation
 @objc enum TrackingState: Int {
     case TrackingOn
     case TrackingOff
+    case TrackingUndefined // usually we would just use an optional trackingstate but exposing to obj-c prevents this
 }
 
+typealias TrackingStateListener = (TrackingState) -> ()
+
 @objc class LocationTrackingInteractor: NSObject {
-    typealias TrackingStateListener = (TrackingState) -> ()
     
     private var m_trackingStateListener = [TrackingStateListener]()
     

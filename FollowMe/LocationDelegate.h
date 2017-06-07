@@ -10,6 +10,7 @@
 #define LocationDelegate_h
 
 #import <CoreLocation/CoreLocation.h>
+
 //#import "Presenter.h"
 
 @class LocationDelegate;

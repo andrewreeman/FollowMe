@@ -38,7 +38,8 @@
 	</array>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>We need the use of location to impress people</string>
-    
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>We need the use of location in the background to impress people</string>    
     <key>LSApplicationQueriesSchemes</key>
     <array>
         <string>googlechromes</string>

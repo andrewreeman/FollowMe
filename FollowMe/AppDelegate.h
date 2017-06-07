@@ -25,7 +25,9 @@
 
 + (AppDelegate*) getApp;
 - (void)saveContext;
--(void)startLocationUpdatesUsingPresenter: (NSObject<LocationMessagePresenter>*)presenter AndUiLocationUpdateListener: (LocationUpdatedListener)locationUiUpdateListener;
+-(void)startLocationUpdatesUsingPresenter: (NSObject<LocationMessagePresenter>*)presenter AndUiLocationUpdateListener:  (void(^)(CLLocation*, TrackingState))locationUiUpdateListener;
+
+// takes a tracking state listener
 -(void)startListeningToTrackingStateUsing:(void(^)(TrackingState)) newTrackingState;
 
 @end
