@@ -23,6 +23,7 @@
 		492DD7E81EE74268007671AE /* LocationUpdatedInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492DD7E71EE74268007671AE /* LocationUpdatedInteractor.swift */; };
 		4968CBDB1EE7629500A94D61 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4968CBDA1EE7629500A94D61 /* Common.swift */; };
 		497748BD1EE74F0700A50CD9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 497748BC1EE74F0700A50CD9 /* Localizable.strings */; };
+		498F8A941EE8757D0002F2EF /* LocationTrackingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498F8A931EE8757D0002F2EF /* LocationTrackingInteractor.swift */; };
 		49B8AB5F1EE5F36600376D16 /* NSArray+ArrayExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B8AB5E1EE5F36600376D16 /* NSArray+ArrayExtensions.m */; };
 		78634F96DA18BBC50ECE3812 /* Pods_FollowMeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B5588E94DE8DFE5AB8A21C7 /* Pods_FollowMeTests.framework */; };
 		98DF1EDA3BF9E000623EFDE1 /* Pods_FollowMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF1D1A6D0DF0AD3B9525FEF /* Pods_FollowMe.framework */; };
@@ -79,6 +80,7 @@
 		497748B41EE74A3800A50CD9 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Main.strings"; sourceTree = "<group>"; };
 		497748B51EE74A3900A50CD9 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		497748BC1EE74F0700A50CD9 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		498F8A931EE8757D0002F2EF /* LocationTrackingInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTrackingInteractor.swift; sourceTree = "<group>"; };
 		49B8AB5D1EE5F36600376D16 /* NSArray+ArrayExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+ArrayExtensions.h"; sourceTree = "<group>"; };
 		49B8AB5E1EE5F36600376D16 /* NSArray+ArrayExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+ArrayExtensions.m"; sourceTree = "<group>"; };
 		55E013DCDD749CF8FEEB60BE /* Pods-FollowMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FollowMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-FollowMe/Pods-FollowMe.release.xcconfig"; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				492DD7E71EE74268007671AE /* LocationUpdatedInteractor.swift */,
+				498F8A931EE8757D0002F2EF /* LocationTrackingInteractor.swift */,
 			);
 			name = Interactors;
 			sourceTree = "<group>";
@@ -534,6 +537,7 @@
 				4919E22E1EE5F1560022F44D /* NSString+StringExtensions_m.m in Sources */,
 				4919E1F01EE5CB590022F44D /* PathViewController.m in Sources */,
 				4919E2241EE5E1A40022F44D /* LocationDelegate.m in Sources */,
+				498F8A941EE8757D0002F2EF /* LocationTrackingInteractor.swift in Sources */,
 				4919E1ED1EE5CB590022F44D /* AppDelegate.m in Sources */,
 				4919E1F61EE5CB590022F44D /* FollowMe.xcdatamodeld in Sources */,
 				4919E1EA1EE5CB590022F44D /* main.m in Sources */,

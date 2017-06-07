@@ -13,7 +13,7 @@
         <scene sceneID="Huw-Kx-7i8">
             <objects>
                 <navigationController id="y2R-M5-bWR" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lqO-OC-nTG">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="lqO-OC-nTG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -36,13 +36,43 @@
                     <view key="view" contentMode="scaleToFill" id="pAK-Bz-CQH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ke-Wf-Ez9">
+                                <rect key="frame" x="236" y="64" width="139" height="68"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Start tracking" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5NG-WF-6lj">
+                                        <rect key="frame" x="17" y="0.0" width="105" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.45882352941176469" green="0.45882352941176469" blue="0.45882352941176469" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="of2-yk-g6i">
+                                        <rect key="frame" x="45" y="29" width="51" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </switch>
+                                </subviews>
+                                <color key="backgroundColor" red="0.91764705882352937" green="0.91764705882352937" blue="0.91764705882352937" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="139" id="GsX-ZE-n7q"/>
+                                    <constraint firstAttribute="height" constant="68" id="SZV-SE-Yfo"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="2ke-Wf-Ez9" firstAttribute="top" secondItem="N7q-k6-npH" secondAttribute="bottom" id="NZF-AM-6Zh"/>
+                            <constraint firstAttribute="trailing" secondItem="2ke-Wf-Ez9" secondAttribute="trailing" id="lAm-ON-duG"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="yEY-dY-Bxj"/>
+                    <connections>
+                        <outlet property="switchContainer" destination="2ke-Wf-Ez9" id="EdI-p4-Vj6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uVP-rT-OXG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-583" y="-297"/>
+            <point key="canvasLocation" x="-583.20000000000005" y="-297.30134932533736"/>
         </scene>
     </scenes>
 </document>

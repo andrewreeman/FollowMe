@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "LocationDelegate.h"
 
+@import GoogleMaps;
+
 @interface PathViewController : UIViewController<LocationMessagePresenter>
-
-
+    @property (nonnull, nonatomic) IBOutlet UIView* switchContainer;
 @end
 

@@ -10,8 +10,6 @@
 #import "AppDelegate.h"
 #import "NSString+StringExtensions_m.m"
 
-@import GoogleMaps;
-
 @interface PathViewController ()
 
 @end
@@ -26,18 +24,29 @@ MapApi* m_mapApi;
     AppDelegate* app = [AppDelegate getApp];
     
     m_mapApi = app.mapApi;
-    GMSMapView* map = [m_mapApi createMap];    
+    GMSMapView* map = [m_mapApi createMapWithFrame: self.view.frame];
     
     [app startLocationUpdatesUsingPresenter:self AndUiLocationUpdateListener:^(CLLocation *location) {
         if(location != NULL) {
             [m_mapApi updateWithMap:map ToLocation:location];
         }
     }];
+    map.center = self.view.center;
+    [self.view addSubview:map];
+    [self.view sendSubviewToBack:map];
+ 
+    // init switch container
     
+    UIColor* borderColor = [UIColor colorWithRed:117.0/255.0
+                                           green:117.0/255.0
+                                            blue:117.0/255.0
+                                           alpha:1.0
+                            ];
     
-    self.view = (UIView*)map;      
+    [[self.switchContainer layer]setBorderColor: borderColor.CGColor];
+    [[self.switchContainer layer]setBorderWidth:1.0];
+    //self.view = map;
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

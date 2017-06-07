@@ -23,9 +23,9 @@ fileprivate let API_KEY = "AIzaSyCX1gLWDC5ZsiXqUr6oEhGfmHlLm5tQWNY"
     }
     
     // Create a map view
-    @objc func createMap() -> GMSMapView {
+    @objc func createMap(WithFrame: CGRect) -> GMSMapView {
         let camera = GMSCameraPosition.camera(withLatitude: 53.3646193, longitude: -1.5047846, zoom: 15)
-        let map =  GMSMapView.map(withFrame: .zero, camera: camera)
+        let map =  GMSMapView.map(withFrame: WithFrame, camera: camera)
         map.isMyLocationEnabled = true
         
         if let myCoordinates = map.myLocation?.coordinate {
