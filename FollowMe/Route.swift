@@ -28,6 +28,29 @@ struct RouteMetaData {
         self.endTime = FromSerializable.endTime
         self.distanceInMeters = FromSerializable.distanceInMeters
     }
+    
+    init() {
+        self.id = UUID.init().uuidString
+        self.startTime = Date()
+        self.endTime = self.startTime
+        self.distanceInMeters = 0
+    }
+    
+    init(WithId: String, StartTime: Date, EndTime: Date, Distance: Int) {
+        self.id = WithId
+        self.startTime = StartTime
+        self.endTime = EndTime
+        self.distanceInMeters = Distance
+    }
+    
+    func with(NewDistance: Int) -> RouteMetaData {
+        return RouteMetaData.init(WithId: self.id, StartTime: self.startTime, EndTime: self.endTime, Distance: NewDistance)
+    }
+    
+    func completeRoute() -> RouteMetaData {
+        return RouteMetaData.init(WithId: self.id, StartTime: self.startTime, EndTime: Date(), Distance: self.distanceInMeters)
+    }
+    
 }
 
 struct RouteEntry {
@@ -44,18 +67,57 @@ struct RouteEntry {
             latitude: FromSerializable.latitude, longitude: FromSerializable.longitude
         )
     }
+    
+    init(WithTime: Date, AndLocation: CLLocationCoordinate2D) {
+        self.time = WithTime
+        self.location = AndLocation
+    }
 }
 
-struct Route {
-    let routeMetaData: RouteMetaData
-    let path: [RouteEntry]
+class Route {
+    private var m_routeMetaData: RouteMetaData
+    var routeMetaData: RouteMetaData {
+        return m_routeMetaData
+    }
+    
+    private var m_path: [RouteEntry]
+    var path: [RouteEntry] {
+        return m_path
+    }
     
     var serializable: SerializableRoute {
         return SerializableRoute.init(FromRoute: self)
     }
     
     init(FromSerializable: SerializableRoute) {
-        self.routeMetaData = RouteMetaData.init(FromSerializable: FromSerializable.routeMetaData)
-        self.path = FromSerializable.path.map{ RouteEntry.init(FromSerializable: $0) }
+        self.m_routeMetaData = RouteMetaData.init(FromSerializable: FromSerializable.routeMetaData)
+        self.m_path = FromSerializable.path.map{ RouteEntry.init(FromSerializable: $0) }
     }
+    
+    init(WithRouteMetaData: RouteMetaData, AndPath: [RouteEntry]) {
+        self.m_routeMetaData = WithRouteMetaData
+        self.m_path = AndPath
+    }
+    
+    init() {
+        self.m_routeMetaData = RouteMetaData()
+        self.m_path = [RouteEntry]()
+    }
+    
+    func completeRoute() {
+        self.m_routeMetaData = m_routeMetaData.completeRoute()
+    }
+    
+    func add(RouteEntry entry: RouteEntry) {
+        self.m_path.append(entry)
+        self.m_routeMetaData = m_routeMetaData.with(NewDistance: calculateDistance() )
+    }
+    
+    
+    // MARK: private methods
+    private func calculateDistance() -> Int {
+        // todo: work out distance
+        return 0
+    }
+    
 }

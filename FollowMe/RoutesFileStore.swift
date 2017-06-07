@@ -46,6 +46,10 @@ class RoutesFileStore {
         
     }
     
+    private func fileName(ForRoute: Route) -> String {
+        return ForRoute.routeMetaData.id
+    }
+    
     
     
     
