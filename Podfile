@@ -4,7 +4,8 @@ target 'FollowMe' do
   use_frameworks!
 
   # Pods for FollowMe
-  pod 'GoogleMaps'  
+  pod 'GoogleMaps'
+  pod 'EVReflection'
 
   target 'FollowMeTests' do
     inherit! :search_paths

@@ -23,8 +23,13 @@
 		492DD7E81EE74268007671AE /* LocationUpdatedInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492DD7E71EE74268007671AE /* LocationUpdatedInteractor.swift */; };
 		4968CBDB1EE7629500A94D61 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4968CBDA1EE7629500A94D61 /* Common.swift */; };
 		497748BD1EE74F0700A50CD9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 497748BC1EE74F0700A50CD9 /* Localizable.strings */; };
+		498D60F91EE8A55600404001 /* SerializableRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498D60F81EE8A55600404001 /* SerializableRoute.swift */; };
 		498F8A941EE8757D0002F2EF /* LocationTrackingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498F8A931EE8757D0002F2EF /* LocationTrackingInteractor.swift */; };
 		49B8AB5F1EE5F36600376D16 /* NSArray+ArrayExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B8AB5E1EE5F36600376D16 /* NSArray+ArrayExtensions.m */; };
+		49FA46A21EE89EF700D8616E /* RoutesFileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA46A11EE89EF700D8616E /* RoutesFileStore.swift */; };
+		49FA46A41EE89F2600D8616E /* Paths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA46A31EE89F2600D8616E /* Paths.swift */; };
+		49FA46A61EE8A0D700D8616E /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA46A51EE8A0D700D8616E /* DebugLog.swift */; };
+		49FA46A91EE8A2DF00D8616E /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA46A81EE8A2DF00D8616E /* Route.swift */; };
 		78634F96DA18BBC50ECE3812 /* Pods_FollowMeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B5588E94DE8DFE5AB8A21C7 /* Pods_FollowMeTests.framework */; };
 		98DF1EDA3BF9E000623EFDE1 /* Pods_FollowMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DF1D1A6D0DF0AD3B9525FEF /* Pods_FollowMe.framework */; };
 /* End PBXBuildFile section */
@@ -80,9 +85,14 @@
 		497748B41EE74A3800A50CD9 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Main.strings"; sourceTree = "<group>"; };
 		497748B51EE74A3900A50CD9 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		497748BC1EE74F0700A50CD9 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		498D60F81EE8A55600404001 /* SerializableRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerializableRoute.swift; sourceTree = "<group>"; };
 		498F8A931EE8757D0002F2EF /* LocationTrackingInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTrackingInteractor.swift; sourceTree = "<group>"; };
 		49B8AB5D1EE5F36600376D16 /* NSArray+ArrayExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+ArrayExtensions.h"; sourceTree = "<group>"; };
 		49B8AB5E1EE5F36600376D16 /* NSArray+ArrayExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+ArrayExtensions.m"; sourceTree = "<group>"; };
+		49FA46A11EE89EF700D8616E /* RoutesFileStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutesFileStore.swift; sourceTree = "<group>"; };
+		49FA46A31EE89F2600D8616E /* Paths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Paths.swift; sourceTree = "<group>"; };
+		49FA46A51EE8A0D700D8616E /* DebugLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLog.swift; sourceTree = "<group>"; };
+		49FA46A81EE8A2DF00D8616E /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		55E013DCDD749CF8FEEB60BE /* Pods-FollowMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FollowMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-FollowMe/Pods-FollowMe.release.xcconfig"; sourceTree = "<group>"; };
 		6279B7F0419CC23C7AF4C56D /* Pods_FollowMeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FollowMeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71D778EDAA4E6156092BD58D /* Pods-FollowMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FollowMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FollowMe/Pods-FollowMe.debug.xcconfig"; sourceTree = "<group>"; };
@@ -143,6 +153,8 @@
 		4919E1E71EE5CB590022F44D /* FollowMe */ = {
 			isa = PBXGroup;
 			children = (
+				49FA46A71EE8A2CE00D8616E /* Models */,
+				49FA46A01EE89ED000D8616E /* Repositorys */,
 				492DD7E61EE7424C007671AE /* Interactors */,
 				4919E22A1EE5F0B80022F44D /* Extensions */,
 				4919E21F1EE5D1930022F44D /* FollowMe-Bridging-Header.h */,
@@ -224,6 +236,33 @@
 				498F8A931EE8757D0002F2EF /* LocationTrackingInteractor.swift */,
 			);
 			name = Interactors;
+			sourceTree = "<group>";
+		};
+		498D60F71EE8A53400404001 /* SerializableModels */ = {
+			isa = PBXGroup;
+			children = (
+				498D60F81EE8A55600404001 /* SerializableRoute.swift */,
+			);
+			name = SerializableModels;
+			sourceTree = "<group>";
+		};
+		49FA46A01EE89ED000D8616E /* Repositorys */ = {
+			isa = PBXGroup;
+			children = (
+				498D60F71EE8A53400404001 /* SerializableModels */,
+				49FA46A11EE89EF700D8616E /* RoutesFileStore.swift */,
+				49FA46A31EE89F2600D8616E /* Paths.swift */,
+				49FA46A51EE8A0D700D8616E /* DebugLog.swift */,
+			);
+			name = Repositorys;
+			sourceTree = "<group>";
+		};
+		49FA46A71EE8A2CE00D8616E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				49FA46A81EE8A2DF00D8616E /* Route.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		52EC9B5C2AF00ACD846F598C /* Frameworks */ = {
@@ -536,14 +575,19 @@
 			files = (
 				4919E22E1EE5F1560022F44D /* NSString+StringExtensions_m.m in Sources */,
 				4919E1F01EE5CB590022F44D /* PathViewController.m in Sources */,
+				49FA46A61EE8A0D700D8616E /* DebugLog.swift in Sources */,
+				49FA46A91EE8A2DF00D8616E /* Route.swift in Sources */,
 				4919E2241EE5E1A40022F44D /* LocationDelegate.m in Sources */,
 				498F8A941EE8757D0002F2EF /* LocationTrackingInteractor.swift in Sources */,
 				4919E1ED1EE5CB590022F44D /* AppDelegate.m in Sources */,
 				4919E1F61EE5CB590022F44D /* FollowMe.xcdatamodeld in Sources */,
+				498D60F91EE8A55600404001 /* SerializableRoute.swift in Sources */,
 				4919E1EA1EE5CB590022F44D /* main.m in Sources */,
+				49FA46A21EE89EF700D8616E /* RoutesFileStore.swift in Sources */,
 				492DD7E81EE74268007671AE /* LocationUpdatedInteractor.swift in Sources */,
 				49B8AB5F1EE5F36600376D16 /* NSArray+ArrayExtensions.m in Sources */,
 				4968CBDB1EE7629500A94D61 /* Common.swift in Sources */,
+				49FA46A41EE89F2600D8616E /* Paths.swift in Sources */,
 				4919E2211EE5D1930022F44D /* MapApi.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
