@@ -8,6 +8,11 @@
 
 import Foundation
 
+/**
+ * A simple debug log class that could be further expanded to writing the debug log to disk.
+ * Probably using a library like 'SwiftyBeaver'
+ * @see <a href="https://github.com/SwiftyBeaver/SwiftyBeaver">SwiftBeaver</a>
+*/
 class DebugLog {
     
     private static let s_debugLog = DebugLog()
@@ -22,6 +27,5 @@ class DebugLog {
     
     private func format(Message: String, File: String, Function: String, Line: Int)-> String {
         return "In file \(File) -> using function \(Function) -> at line \(Line): \(Message)"
-    }
-    
+    }    
 }

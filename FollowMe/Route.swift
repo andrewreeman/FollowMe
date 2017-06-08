@@ -223,6 +223,7 @@ final class Route {
          then we use reduce to iterate over each location.
          In reduce we will be passing a tuple that contains the distance so far and the previous coordinate.
          We need this previous coordinate because we will be working out the distance between that and the current coordinate.
+         
          */
         let calculationResult = self.m_path.map{$0.location}.reduce((0.0, nil))
         { (distanceAndPrevious: (CLLocationDistance, CLLocationCoordinate2D?), currentEntry) in

@@ -10,7 +10,7 @@ import Foundation
 import EVReflection
 
 /**
- Very simple classes for serialization
+ Very simple classes for serialization using the EVReflection library
  */
 class SerializableRouteEntry: EVObject {
     var time = Date()

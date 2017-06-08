@@ -8,5 +8,6 @@
 
 import Foundation
 
+// utility global constants for file repositories
 let ROOT_DIR = URL(string: NSHomeDirectory())!
 let DOCUMENT_DIR = ROOT_DIR.appendingPathComponent("Documents")
