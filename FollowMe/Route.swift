@@ -8,6 +8,31 @@
 
 import Foundation
 
+fileprivate let ROUTES_DATE_FORMATTER: () -> DateFormatter = {
+    let dateFormatter = DateFormatter.init()
+    dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+    return dateFormatter
+}
+
+func ==(lhs: RouteMetaData, rhs: RouteMetaData) -> Bool {
+    let distanceEqual = lhs.distanceInMeters == rhs.distanceInMeters
+    
+    // rounding error will be because of deserializing dates
+    let lhsDuration = lhs.durationInSeconds.rounded(.down)
+    let rhsDuration = rhs.durationInSeconds.rounded(.down)
+    let durationEqual = lhsDuration == rhsDuration
+    
+    let idEqual = lhs.id == rhs.id
+    
+    let lhsStartTime = ROUTES_DATE_FORMATTER().string(from: lhs.startTime)
+    let rhsStartTime = ROUTES_DATE_FORMATTER().string(from: rhs.startTime)
+    let startTimesEqual = lhsStartTime == rhsStartTime
+    
+    let lhsEndTime = ROUTES_DATE_FORMATTER().string(from: lhs.endTime)
+    let rhsEndTime = ROUTES_DATE_FORMATTER().string(from: rhs.endTime)
+    let endTimesEqual = lhsEndTime == rhsEndTime
+    return distanceEqual && durationEqual && idEqual && startTimesEqual && endTimesEqual
+}
 struct RouteMetaData {
     let id: String
     let startTime: Date
@@ -53,6 +78,17 @@ struct RouteMetaData {
     
 }
 
+func ==(lhs: RouteEntry, rhs: RouteEntry) -> Bool {
+    let sameLatitude = lhs.location.latitude == rhs.location.latitude
+    let sameLongitude = lhs.location.longitude == rhs.location.longitude
+    
+    let lhsTime = ROUTES_DATE_FORMATTER().string(from: lhs.time)
+    let rhsTime = ROUTES_DATE_FORMATTER().string(from: rhs.time)
+    let sameTime = lhsTime == rhsTime
+    
+    return sameLatitude && sameLongitude && sameTime
+}
+
 struct RouteEntry {
     let time: Date
     let location: CLLocationCoordinate2D
@@ -75,7 +111,14 @@ struct RouteEntry {
     }
 }
 
-class Route {
+func ==(lhs: Route, rhs: Route) -> Bool {
+    let metaDataEqual = lhs.routeMetaData == rhs.routeMetaData
+    let pathsEqual = zip(lhs.path, rhs.path).reduce(true, { $0 && $1.0 == $1.1})
+    
+    return metaDataEqual && pathsEqual
+}
+
+final class Route {
     private var m_routeMetaData: RouteMetaData
     var routeMetaData: RouteMetaData {
         return m_routeMetaData
@@ -89,7 +132,7 @@ class Route {
     var serializable: SerializableRoute {
         return SerializableRoute.init(FromRoute: self)
     }
-    
+        
     init(FromSerializable: SerializableRoute) {
         self.m_routeMetaData = RouteMetaData.init(FromSerializable: FromSerializable.routeMetaData)
         self.m_path = FromSerializable.path.map{ RouteEntry.init(FromSerializable: $0) }

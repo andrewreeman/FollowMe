@@ -22,6 +22,7 @@
 		4919E22E1EE5F1560022F44D /* NSString+StringExtensions_m.m in Sources */ = {isa = PBXBuildFile; fileRef = 4919E22D1EE5F1560022F44D /* NSString+StringExtensions_m.m */; };
 		492DD7E81EE74268007671AE /* LocationUpdatedInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492DD7E71EE74268007671AE /* LocationUpdatedInteractor.swift */; };
 		494C431B1EE97F01002BE916 /* RouteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494C431A1EE97F01002BE916 /* RouteTests.swift */; };
+		494C43421EE9E1BF002BE916 /* RandomGeneratable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494C43411EE9E1BF002BE916 /* RandomGeneratable.swift */; };
 		4968CBDB1EE7629500A94D61 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4968CBDA1EE7629500A94D61 /* Common.swift */; };
 		497748BD1EE74F0700A50CD9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 497748BC1EE74F0700A50CD9 /* Localizable.strings */; };
 		498D60F91EE8A55600404001 /* SerializableRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498D60F81EE8A55600404001 /* SerializableRoute.swift */; };
@@ -84,6 +85,7 @@
 		492DD7E71EE74268007671AE /* LocationUpdatedInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationUpdatedInteractor.swift; sourceTree = "<group>"; };
 		494C43191EE97F01002BE916 /* FollowMeTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FollowMeTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		494C431A1EE97F01002BE916 /* RouteTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteTests.swift; sourceTree = "<group>"; };
+		494C43411EE9E1BF002BE916 /* RandomGeneratable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomGeneratable.swift; sourceTree = "<group>"; };
 		4968CBDA1EE7629500A94D61 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		497748B41EE74A3800A50CD9 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Main.strings"; sourceTree = "<group>"; };
 		497748B51EE74A3900A50CD9 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				49B8AB5D1EE5F36600376D16 /* NSArray+ArrayExtensions.h */,
 				49B8AB5E1EE5F36600376D16 /* NSArray+ArrayExtensions.m */,
 				4968CBDA1EE7629500A94D61 /* Common.swift */,
+				494C43411EE9E1BF002BE916 /* RandomGeneratable.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -595,6 +598,7 @@
 				4968CBDB1EE7629500A94D61 /* Common.swift in Sources */,
 				49FA46A41EE89F2600D8616E /* Paths.swift in Sources */,
 				4919E2211EE5D1930022F44D /* MapApi.swift in Sources */,
+				494C43421EE9E1BF002BE916 /* RandomGeneratable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

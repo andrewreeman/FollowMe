@@ -34,6 +34,42 @@ extension CLLocationCoordinate2D {
     func distance(From: CLLocationCoordinate2D) -> CLLocationDistance {
         return self.clLocation.distance(from: From.clLocation)
     }
+}
+
+// ruby like!
+// can do 5.times { print("hello \($0)")}
+extension Int {
+    func times(_ f: (Int) -> ()) {
+        for i: Int in 0..<self {
+            f(i)
+        }
+    }
     
+    func times(_ f: () -> ()) {
+        self.times { (_:Int) in
+            f()
+        }
+    }
     
+    func map<T>(_ f: (Int) -> T) -> [T]{
+        var collection = [T]()
+        
+        self.times { (i: Int) in
+            let mapped: T = f(i)
+            collection.append(mapped)
+        }
+        return collection
+    }
+}
+
+extension Int {
+    func min(_ lowerBound: Int) -> Int {
+        return Swift.min(self, lowerBound)
+    }
+}
+
+extension Double {
+    func min(_ lowerBound: Double) -> Double {
+        return Swift.min(self, lowerBound)
+    }
 }
