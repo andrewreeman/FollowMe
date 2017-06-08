@@ -116,14 +116,18 @@ class Route {
     
     
     // MARK: private methods
-    private func calculateDistance() -> Int  {                        
+    
+    /**
+     The total sum of the distance between each entry
+     */
+    private func calculateDistance() -> Int  {
         let calculationResult = self.m_path.map{$0.location}.reduce((0.0, nil))
         { (distanceAndPrevious: (CLLocationDistance, CLLocationCoordinate2D?), currentEntry) in
            
             guard let previousRouteEntry = distanceAndPrevious.1
             else { return (0.0, currentEntry) }
             
-            let newDistance = previousRouteEntry.distance(From: currentEntry)
+            let newDistance = distanceAndPrevious.0 + previousRouteEntry.distance(From: currentEntry)
             return (newDistance, currentEntry)
         }
         return Int(calculationResult.0)

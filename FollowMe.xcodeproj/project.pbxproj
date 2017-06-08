@@ -21,6 +21,7 @@
 		4919E2241EE5E1A40022F44D /* LocationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4919E2231EE5E1A40022F44D /* LocationDelegate.m */; };
 		4919E22E1EE5F1560022F44D /* NSString+StringExtensions_m.m in Sources */ = {isa = PBXBuildFile; fileRef = 4919E22D1EE5F1560022F44D /* NSString+StringExtensions_m.m */; };
 		492DD7E81EE74268007671AE /* LocationUpdatedInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492DD7E71EE74268007671AE /* LocationUpdatedInteractor.swift */; };
+		494C431B1EE97F01002BE916 /* RouteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494C431A1EE97F01002BE916 /* RouteTests.swift */; };
 		4968CBDB1EE7629500A94D61 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4968CBDA1EE7629500A94D61 /* Common.swift */; };
 		497748BD1EE74F0700A50CD9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 497748BC1EE74F0700A50CD9 /* Localizable.strings */; };
 		498D60F91EE8A55600404001 /* SerializableRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498D60F81EE8A55600404001 /* SerializableRoute.swift */; };
@@ -81,6 +82,8 @@
 		4919E22C1EE5F1560022F44D /* NSString+StringExtensions_m.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+StringExtensions_m.h"; sourceTree = "<group>"; };
 		4919E22D1EE5F1560022F44D /* NSString+StringExtensions_m.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+StringExtensions_m.m"; sourceTree = "<group>"; };
 		492DD7E71EE74268007671AE /* LocationUpdatedInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationUpdatedInteractor.swift; sourceTree = "<group>"; };
+		494C43191EE97F01002BE916 /* FollowMeTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FollowMeTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		494C431A1EE97F01002BE916 /* RouteTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteTests.swift; sourceTree = "<group>"; };
 		4968CBDA1EE7629500A94D61 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		497748B41EE74A3800A50CD9 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Main.strings"; sourceTree = "<group>"; };
 		497748B51EE74A3900A50CD9 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -187,6 +190,8 @@
 			children = (
 				4919E2051EE5CB5A0022F44D /* FollowMeTests.m */,
 				4919E2071EE5CB5A0022F44D /* Info.plist */,
+				494C431A1EE97F01002BE916 /* RouteTests.swift */,
+				494C43191EE97F01002BE916 /* FollowMeTests-Bridging-Header.h */,
 			);
 			path = FollowMeTests;
 			sourceTree = "<group>";
@@ -371,6 +376,7 @@
 					4919E2001EE5CB590022F44D = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = 5AF65X34YK;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 4919E1E41EE5CB590022F44D;
 					};
@@ -597,6 +603,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4919E2061EE5CB5A0022F44D /* FollowMeTests.m in Sources */,
+				494C431B1EE97F01002BE916 /* RouteTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -776,11 +783,15 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 5AF65X34YK;
 				INFOPLIST_FILE = FollowMeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Stepwise.FollowMeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FollowMeTests/FollowMeTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FollowMe.app/FollowMe";
 			};
 			name = Debug;
@@ -791,11 +802,14 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 5AF65X34YK;
 				INFOPLIST_FILE = FollowMeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Stepwise.FollowMeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FollowMeTests/FollowMeTests-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FollowMe.app/FollowMe";
 			};
 			name = Release;
