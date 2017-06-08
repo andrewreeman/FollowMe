@@ -101,7 +101,7 @@
 -(void)locationManager:(CLLocationManager *)manager
     didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
-    NSLog(@"Updated location");
+    NSLog(@"Updated location: location count is %lu", (unsigned long)locations.count);
     CLLocation* mostRecentLocation = [locations lastObject];
     if( mostRecentLocation != NULL && m_locationUpdatedListener != NULL ){
         m_locationUpdatedListener(mostRecentLocation);

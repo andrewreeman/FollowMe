@@ -11,6 +11,10 @@
 
 @import GoogleMaps;
 
+/**
+ This will show the users current location on the map complete with a toggle for selecting if they want tracking on or off.
+*/
+
 @interface PathViewController : UIViewController<LocationMessagePresenter>
     @property (nonnull, nonatomic) IBOutlet UIView* switchContainer;
     @property (nonnull, nonatomic) IBOutlet UILabel* trackingLabel;

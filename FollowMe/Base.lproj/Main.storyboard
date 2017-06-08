@@ -51,7 +51,7 @@
                                         <rect key="frame" x="45" y="29" width="51" height="31"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <connections>
-                                            <action selector="trackingToggleChanged:" destination="dWq-oT-afj" eventType="valueChanged" id="s7W-L3-X17"/>
+                                            <action selector="trackingToggleChanged:" destination="dWq-oT-afj" eventType="valueChanged" id="nSb-dv-aSF"/>
                                         </connections>
                                     </switch>
                                 </subviews>
