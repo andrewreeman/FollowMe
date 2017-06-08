@@ -10,8 +10,9 @@ import Foundation
 
 
 /**
- This class will contain the state for if tracking is turned on or off.
- If the state changes it will update its listeners
+ This class updates its listeners when the tracking state changes.
+ This class essentially acts as a simple dispatcher. It does not actually store the tracking state. Instead it is passed a new state which is sends to its listeners.
+ The LocationUpdatedInteractor will actually store the tracking state.
 */
 
 @objc enum TrackingState: Int {
@@ -26,6 +27,9 @@ typealias TrackingStateListener = (TrackingState) -> ()
     
     private var m_trackingStateListener = [TrackingStateListener]()
     
+    /** Note: a problem with using callbacks in the array is that there is no easy way to remove them
+     due to no defined equality operations for callbacks. Instead if we want to add listeners we should clear ALL of the listeners first of all. Perhaps we should use Protocols instead of callbacks...🤔
+    */
     func clearTrackingStateListeners() {
         m_trackingStateListener.removeAll()
     }

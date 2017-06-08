@@ -10,6 +10,7 @@
 
 @interface NSString (StringExtensions_m)
 
+// used for lazily making strings localized! 
 -(NSString*)localized;
 
 @end

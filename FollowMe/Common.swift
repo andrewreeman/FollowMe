@@ -8,23 +8,27 @@
 
 import Foundation
 
-infix operator ?=: AssignmentPrecedence
+// Swift note: It is usually considered not best practice to define your own operators. This is probably ok for small projets or if the majority of the team agree on the operators.
+
 
 // Optional assignment: only assign if left is nil
+infix operator ?=: AssignmentPrecedence
+
 func ?=<T>(left: inout T?, right: T?) {
     if left == nil {
         left = right!
     }
 }
 
+// Optional assignment: only assign if right is not nil
 infix operator =?: AssignmentPrecedence
 
-// Optional assignment: only assign if right is not nil
 func =?<T>(left: inout T, right: T?) {
     if right != nil {
         left = right!
     }
 }
+
 
 extension CLLocationCoordinate2D {
     var clLocation: CLLocation {
@@ -51,6 +55,9 @@ extension Int {
         }
     }
     
+    // This is a (very swifty) useful function for creating a list N items. 
+    // Can use like: 5.map{return "I am string number \($0)"}
+    // This will create an array of 5 strings!
     func map<T>(_ f: (Int) -> T) -> [T]{
         var collection = [T]()
         
@@ -62,6 +69,7 @@ extension Int {
     }
 }
 
+// these are to be used only by the most laziest of developers...
 extension Int {
     func min(_ lowerBound: Int) -> Int {
         return Swift.min(self, lowerBound)

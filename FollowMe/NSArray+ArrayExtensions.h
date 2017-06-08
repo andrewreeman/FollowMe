@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface NSArray (ArrayExtensions)
+
+// I'm a fan of ruby because of its readability so I need these extensions on every language that permits it!
 -(BOOL)isEmpty;
 -(BOOL)hasItems;
 @end
