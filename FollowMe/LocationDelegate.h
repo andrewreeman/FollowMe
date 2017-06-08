@@ -11,10 +11,17 @@
 
 #import <CoreLocation/CoreLocation.h>
 
-//#import "Presenter.h"
+
+/**
+ This class will simply report location updates to its listener.
+ When the location usage changes it will require permission to continue updating in the background or not.
+*/
 
 @class LocationDelegate;
 
+/**
+ The presenter is used to display messages from the LocationDelegate to the user
+*/
 @protocol LocationMessagePresenter <NSObject>
 
 -(void)present:(NSString*)message FromLocationDelegate: (LocationDelegate*)delegate;

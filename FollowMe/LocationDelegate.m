@@ -15,16 +15,7 @@
     CLLocationManager *m_manager;
     NSObject<LocationMessagePresenter> *m_presenter;
     LocationUpdatedListener m_locationUpdatedListener;
-
-
-    // start updating location
-
-    // set location updated callback
-
-    // set location warning presenter
-
-    // set location service backgroundUsage
-
+   
 - (LocationDelegate*)init
 {
     self = [super init];
@@ -32,17 +23,22 @@
         m_manager = [[CLLocationManager alloc]init];
         m_manager.delegate = self;
         m_manager.desiredAccuracy = kCLLocationAccuracyBest;
-        m_manager.distanceFilter = 5.0f;
+        m_manager.distanceFilter = 1.0f;
     }
     return self;
 }
 
 
 // MARK: public methods
+
+
 -(void)setPresenter:(NSObject<LocationMessagePresenter> *)presenter {
     m_presenter = presenter;
 }
 
+/**
+ Will check location services is on and is not denied. Asks for permission where neccessary
+*/
 -(void)checkAuthorisation:(LocationUsage)usage {
     if (![CLLocationManager locationServicesEnabled]) {
         [self displayLocationDisabledMessage];
@@ -82,6 +78,10 @@
 }
 
 // MARK: CLLocationManagerDelegate methods
+
+/**
+ Display message to the user if it's a status we don't like!
+*/
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     switch(status) {
         case kCLAuthorizationStatusAuthorizedAlways:
@@ -98,11 +98,15 @@
     }
 }
 
+/**
+ Update listener with the most recent location
+*/
 -(void)locationManager:(CLLocationManager *)manager
     didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
-    NSLog(@"Updated location: location count is %lu", (unsigned long)locations.count);
+    
     CLLocation* mostRecentLocation = [locations lastObject];
+    NSLog(@"Updated location: %@", mostRecentLocation);
     if( mostRecentLocation != NULL && m_locationUpdatedListener != NULL ){
         m_locationUpdatedListener(mostRecentLocation);
     }

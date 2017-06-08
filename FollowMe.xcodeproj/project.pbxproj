@@ -171,14 +171,14 @@
 				4919E21E1EE5D16F0022F44D /* Map */,
 				4919E1EB1EE5CB590022F44D /* AppDelegate.h */,
 				4919E1EC1EE5CB590022F44D /* AppDelegate.m */,
+				4919E2231EE5E1A40022F44D /* LocationDelegate.m */,
+				4919E2251EE5E1B10022F44D /* LocationDelegate.h */,
 				4919E1F11EE5CB590022F44D /* Main.storyboard */,
 				4919E1F71EE5CB590022F44D /* Assets.xcassets */,
 				4919E1F91EE5CB590022F44D /* LaunchScreen.storyboard */,
 				4919E1FC1EE5CB590022F44D /* Info.plist */,
 				4919E1F41EE5CB590022F44D /* FollowMe.xcdatamodeld */,
 				4919E1E81EE5CB590022F44D /* Supporting Files */,
-				4919E2231EE5E1A40022F44D /* LocationDelegate.m */,
-				4919E2251EE5E1B10022F44D /* LocationDelegate.h */,
 			);
 			path = FollowMe;
 			sourceTree = "<group>";
