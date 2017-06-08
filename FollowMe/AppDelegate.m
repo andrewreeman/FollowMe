@@ -110,6 +110,10 @@ LocationDelegate* m_locationDelegate;
 }
 
 //MARK: public methods
+
+/**
+ This will start the location updates. The presenter is used for displaying messages to the user regarding location authorisation. 
+*/
 -(void)startLocationUpdatesUsingPresenter: (NSObject<LocationMessagePresenter>*)presenter AndUiLocationUpdateListener:  (void(^)(CLLocation*, TrackingState))locationUiUpdateListener
 {
     
@@ -119,16 +123,24 @@ LocationDelegate* m_locationDelegate;
     [self startUpdatingLocation];
 }
 
+/**
+ This will clear the current tracking state listeners then initialise and add the one passed as a parameter
+*/
 -(void)startListeningToTrackingStateUsing:(void(^)(TrackingState)) newTrackingState {
     [[self locationTrackingInteractor] clearTrackingStateListeners];
     
     // add tracking state listeners
     [[self locationTrackingInteractor] addWithTrackingStateListener:newTrackingState];
     
+    // add the tracking state listener provided by the location updated interactor
     [[self locationTrackingInteractor] addWithTrackingStateListener:
      [[self locationUpdatedInteractor] trackingStateListener]
     ];
     
+    /** There is a potential issue here! This is currently relying on the order of being added.
+     startUpdatingLocation depends on the locationUpdatedInteractor's locationUsage being updated
+     first. A better design would have a 'locationUsageUpdated' event in the locationUpdatedInteractor
+    */
     [[self locationTrackingInteractor] addWithTrackingStateListener:^(enum TrackingState newState) {
         [self startUpdatingLocation];
     }];

@@ -11,6 +11,10 @@
 #import "FollowMe-Swift.h"
 #import "LocationDelegate.h"
 
+/**
+ The AppDelegate will act mainly as a bridge between the view controllers and the interactor classes.
+ 
+*/
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
