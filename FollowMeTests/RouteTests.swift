@@ -89,7 +89,50 @@ class RouteTestCase: XCTestCase {
         }
     }
     
-    
-    
-    
+    func testCanListenerReceiveRoutesFileStoreChanges() {
+        defer {
+            do {
+                try RoutesFileStore()?.clearAllRoutes()
+            } catch {
+                XCTFail("\(error)")
+            }
+        }
+        
+        let route = Route.random()
+        guard let routeFileStore = RoutesFileStore()
+            else {
+                XCTFail("Could not create Route directory.")
+                return
+        }
+        
+        let e = expectation(description: "File ops performed ok")
+        
+        e.expectedFulfillmentCount = 2
+        routeFileStore.updatedListener = {
+            (transactionType, fileStore, error) in
+            guard error == nil
+            else {
+                XCTFail("\(error!)")
+                return
+            }
+            
+            switch transactionType {
+            case .update:
+                print("Updated: Fulfilling once")
+                e.fulfill()
+                fileStore.delete(Route: route)
+            case .delete:
+                print("Deleted: Fulfilling twice")
+                e.fulfill()
+            }
+        }
+        
+        routeFileStore.update(Route: route)
+        
+        waitForExpectations(timeout: 5) {
+            if let error = $0 {
+                XCTFail(error.localizedDescription)
+            }
+        }
+    }
 }

@@ -27,7 +27,6 @@ import Foundation
 */
 enum RouteFileStoreTransactionType {
     case delete
-    case create
     case update
 }
 
@@ -97,7 +96,7 @@ class RoutesFileStore {
      Writes the route to disk
     */
     func update(Route: Route) {
-        performAsync(TransactionType: .create) {
+        performAsync(TransactionType: .update) {
             [weak self] in
             try self?._create(route: Route)
         }
@@ -149,9 +148,8 @@ class RoutesFileStore {
 
     
     private func _delete(Route: Route) throws {
-        try FileManager.default.removeItem(at: Route.url)
-    }
-    
+        try FileManager.default.removeItem(at: Route.dir)
+    }    
     
     private func _create(route: Route) throws {
         try route.serializable.toJsonString().write(to: route.url, atomically: true, encoding: .utf8)
@@ -187,6 +185,7 @@ class RoutesFileStore {
 // These are utility properties for route and the meta data that are used just for the routesfilestore
 fileprivate extension Route {
     var url: URL { return self.routeMetaData.url }
+    var dir: URL { return self.routeMetaData.dir }
     var fileExists: Bool { return self.routeMetaData.fileExists }
 }
 
@@ -196,9 +195,12 @@ fileprivate extension RouteMetaData {
     }
     
     var url: URL {
-        let thisRoutesDir = ROUTES_DIR.appendingPathComponent(self.id)
-        makeDirIfNeeded( thisRoutesDir )        
-        return thisRoutesDir.appendingPathComponent(self.fileName)
+        makeDirIfNeeded( dir )
+        return dir.appendingPathComponent(self.fileName)
+    }
+    
+    var dir: URL {
+        return ROUTES_DIR.appendingPathComponent(self.id)
     }
     
     var fileExists: Bool {
