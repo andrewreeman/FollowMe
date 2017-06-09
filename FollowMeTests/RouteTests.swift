@@ -47,6 +47,41 @@ class RouteTestCase: XCTestCase {
         XCTAssert(route == deserializedRoute, "Routes are not equal: \(route). \(deserializedRoute)")
     }
     
+    func testCanReadAndWriteRouteToDisk() {
+        let route = Route.random()
+        guard let routeFileStore = RoutesFileStore()
+        else {
+            XCTFail("Could not create Route directory.")
+            return
+        }
+        
+        do {
+            try routeFileStore.clearAllRoutes()
+        
+            routeFileStore.update(Route: route)
+            let routeMetaDatas = try routeFileStore.retrieveRouteMetaData()
+            
+            guard let storedMetaData = routeMetaDatas.first
+            else {
+                XCTFail("Route meta data is empty. Could not load from disk?")
+                return
+            }
+            
+            guard let storedRoute = routeFileStore.getRouteFor(RouteMetaData: storedMetaData)
+            else {
+                XCTFail("Could not load stored route from meta data")
+                return
+            }
+            
+            XCTAssert(storedRoute == route,
+                "Routes do not match: \(storedRoute) does not match \(route)"
+            )
+            
+        } catch {
+            XCTFail("Could not load route from disk: \(error)")
+        }
+    }
+    
     
     
     

@@ -10,6 +10,24 @@ import Foundation
 
 // Swift note: It is usually considered not best practice to define your own operators. This is probably ok for small projets or if the majority of the team agree on the operators.
 
+// We are returning so that it essentially generates a compiler warning!
+func easyTry(_ f: () throws -> ()) -> Bool {
+    do {
+        try f()
+        return true
+    } catch {
+        print(error)
+        return false
+    }
+}
+
+// ruby like :)
+extension Collection {
+    public var hasItems: Bool {
+        return !self.isEmpty
+    }
+}
+
 
 // Optional assignment: only assign if left is nil
 infix operator ?=: AssignmentPrecedence
@@ -79,5 +97,17 @@ extension Int {
 extension Double {
     func min(_ lowerBound: Double) -> Double {
         return Swift.min(self, lowerBound)
+    }
+}
+
+
+extension URL {
+    public func createFileURL() -> URL? {
+        guard var sourceURLComponents = URLComponents.init(url: self, resolvingAgainstBaseURL: true) else {
+            return nil
+        }
+        
+        sourceURLComponents.scheme = "file"
+        return sourceURLComponents.url
     }
 }
