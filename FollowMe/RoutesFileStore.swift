@@ -15,12 +15,48 @@ import Foundation
     Routes/
         {RouteIdA}/{RouteIdA}.json
         {RouteIdB}/{RouteIdB}.json
+ 
+ Because this class contains multi-threading I have used a convention of prefixing most private methods with '_' to indicate that these are private and will not directly use the FILE_QUEUE. Most of the public methods will use this queue.
+ As long as all methods only interact with private methods then no deadlocking will occur!
+ Because we will be performing async work we will use a callback to inform when file changes have been made.
+ We use the 'performAsync' private method to put items on the queue and trigger the callback along with any errors after every transaction.
 */
 
+/**
+ The types of transactions the listener will be told happened
+*/
+enum RouteFileStoreTransactionType {
+    case delete
+    case create
+    case update
+}
+
+/**
+ The directory the rotues will be kept in
+*/
 fileprivate let ROUTES_DIR = DOCUMENT_DIR.appendingPathComponent("Routes").createFileURL()!
 class RoutesFileStore {
-    /** This is the queue we will use for writing files async */
-    private static let FILE_QUEUE = DispatchQueue.init(label: "com.stepwise.followme.filequeue")
+    typealias RouteFileStoreUpdated = (RouteFileStoreTransactionType, RoutesFileStore, Error?) -> ()
+    
+    /** This is the queue we will use for writing files async. 
+     We have tried to take care that no deadlocks occur by prefixing 'safe' methods with '_'
+     */
+    private static let FILE_QUEUE = DispatchQueue.init(
+        label: "com.stepwise.followme.filequeue", qos: DispatchQoS.utility
+    )
+    
+    /**
+     When files have been deleted, created or updated then this listener is called
+    */
+    private var m_updatedListener: RouteFileStoreUpdated?
+    var updatedListener: RouteFileStoreUpdated? {
+        get {
+            return m_updatedListener
+        }
+        set {
+            m_updatedListener = newValue
+        }
+    }
     
     /**
      Swift tip! This is a failable initializer. It will return nil if directory creation fails.
@@ -42,78 +78,139 @@ class RoutesFileStore {
      This is used for displaying the route entries in a list picker.
      */
     func retrieveRouteMetaData() throws -> [RouteMetaData] {
-        return try loadAllRoutes().map{ $0.routeMetaData }
+        return try RoutesFileStore.FILE_QUEUE.sync {
+            return try _loadAllRoutes().map{ $0.routeMetaData }
+        }
     }
     
     /**
      Using the id in the routemetadata this will obtain the route
     */
     func getRouteFor(RouteMetaData metaData: RouteMetaData) -> Route? {
-        guard let serializableRoute = loadRoute(FromUrl: metaData.url ) else { return nil }
-        return Route(FromSerializable: serializableRoute)
+        return RoutesFileStore.FILE_QUEUE.sync {
+            guard let serializableRoute = _loadRoute(FromUrl: metaData.url ) else { return nil }
+            return Route(FromSerializable: serializableRoute)
+        }
     }
     
     /**
      Writes the route to disk
     */
     func update(Route: Route) {
-        easyTry {
-            try create(route: Route)
+        performAsync(TransactionType: .create) {
+            [weak self] in
+            try self?._create(route: Route)
         }
     }
     
     /**
-     Deletes a route along with it's containing folder
+     Deletes a route
     */
-    func delete(Route: Route) throws {
-        try FileManager.default.removeItem(at: Route.url)
+    func delete(Route: Route) {
+        performAsync(TransactionType: .delete) {
+            [weak self] in
+            try self?._delete(Route: Route)
+        }
     }
     
     func clearAllRoutes() throws {
-        try loadAllRoutes().forEach{ try delete(Route: $0) }
+        performAsync(TransactionType: .delete) {
+            [weak self] in
+            try self?._loadAllRoutes().forEach{ try self?._delete(Route: $0) }
+        }
     }
     
     // MARK: private methods
-    private func create(route: Route) throws {
+    
+    private func performAsync(
+        
+        TransactionType: RouteFileStoreTransactionType,
+        _  transaction: @escaping () throws -> ()
+        )
+    {
+        /**
+         Performs the transaction async on the FILE_QUEUE.
+         If the transaction succeeds then the listener is triggered with the transaction type.
+         If it fails then the same happens but an error is passed through.
+         */
+        
+        RoutesFileStore.FILE_QUEUE.async {
+            [weak self] in
+            guard let this = self else { return }
+            
+            do {
+                try transaction()
+                this.m_updatedListener?(TransactionType, this, nil)
+            } catch {
+                this.m_updatedListener?(TransactionType, this, error)
+            }
+        }
+    }
+
+    
+    private func _delete(Route: Route) throws {
+        try FileManager.default.removeItem(at: Route.url)
+    }
+    
+    
+    private func _create(route: Route) throws {
         try route.serializable.toJsonString().write(to: route.url, atomically: true, encoding: .utf8)
     }
     
-    private func loadRoute(FromUrl: URL) -> SerializableRoute? {
+    private func _loadRoute(FromUrl: URL) -> SerializableRoute? {
         guard let jsonString = try? String.init(contentsOf: FromUrl) else { return nil }
         return SerializableRoute(json: jsonString)
     }
     
-    private func loadAllRoutes() throws -> [Route] {
-        return try FileManager.default
-        .contentsOfDirectory(
-            at: ROUTES_DIR,
-            includingPropertiesForKeys: nil,
-            options: .skipsHiddenFiles
-        )
-        .flatMap{
-            guard let serializableRoute = loadRoute(FromUrl: $0) else { return nil }
-            return Route(FromSerializable: serializableRoute)
+    private func _loadAllRoutes() throws -> [Route] {
+        /**
+         This iterates through every Route folder. For each folder it then finds the json file then loads this as a route.
+         Using flatmap will take care of skipping over any nil values in the list and also stripping any nil values returned from the map.
+        */
+        
+        let fm = FileManager.default
+        return try fm.contentsOfDirectory( at: ROUTES_DIR )
+        .flatMap{  (routeDir: URL) -> Route? in
+            guard let directoryContents = try? fm.contentsOfDirectory(at: routeDir) else { return nil }
+            
+            let route = directoryContents
+            .filter{ $0.pathExtension == "json" }.first
+            .flatMap { (routeFile) -> Route? in
+                guard let serializableRoute = _loadRoute(FromUrl: routeFile) else { return nil }
+                return Route(FromSerializable: serializableRoute)
+            }
+            return route
         }
     }
 }
 
-// These are utility properties for route that are used just for the routesfilestore
+// These are utility properties for route and the meta data that are used just for the routesfilestore
 fileprivate extension Route {
-    var filename: String { return self.routeMetaData.fileName }
     var url: URL { return self.routeMetaData.url }
     var fileExists: Bool { return self.routeMetaData.fileExists }
 }
 
 fileprivate extension RouteMetaData {
-    var fileName: String {
+    private var fileName: String {
         return "\(self.id).json"
     }
     
     var url: URL {
-        return ROUTES_DIR.appendingPathComponent(self.fileName)
+        let thisRoutesDir = ROUTES_DIR.appendingPathComponent(self.id)
+        makeDirIfNeeded( thisRoutesDir )        
+        return thisRoutesDir.appendingPathComponent(self.fileName)
     }
     
     var fileExists: Bool {
         return FileManager.default.fileExists(atPath: self.url.path)
+    }
+    
+    private func makeDirIfNeeded(_ thisRoutesDir: URL ) {
+        easyTry {
+            guard !FileManager.default.fileExists(atPath: thisRoutesDir.path) else { return }
+            try FileManager.default.createDirectory(
+                at: thisRoutesDir, withIntermediateDirectories: true, attributes: nil
+            )
+        }
     }
 }

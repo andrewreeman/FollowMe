@@ -102,7 +102,7 @@ extension Double {
 
 
 extension URL {
-    public func createFileURL() -> URL? {
+    func createFileURL() -> URL? {
         guard var sourceURLComponents = URLComponents.init(url: self, resolvingAgainstBaseURL: true) else {
             return nil
         }
@@ -110,4 +110,10 @@ extension URL {
         sourceURLComponents.scheme = "file"
         return sourceURLComponents.url
     }
+}
+
+extension FileManager {
+    func contentsOfDirectory(at: URL) throws -> [URL] {
+        return try self.contentsOfDirectory(at: at, includingPropertiesForKeys: nil)
+    }    
 }

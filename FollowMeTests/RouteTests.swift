@@ -48,6 +48,14 @@ class RouteTestCase: XCTestCase {
     }
     
     func testCanReadAndWriteRouteToDisk() {
+        defer {
+            do {
+                try RoutesFileStore()?.clearAllRoutes()
+            } catch {
+                XCTFail("\(error)")
+            }
+        }
+        
         let route = Route.random()
         guard let routeFileStore = RoutesFileStore()
         else {
@@ -76,7 +84,6 @@ class RouteTestCase: XCTestCase {
             XCTAssert(storedRoute == route,
                 "Routes do not match: \(storedRoute) does not match \(route)"
             )
-            
         } catch {
             XCTFail("Could not load route from disk: \(error)")
         }
