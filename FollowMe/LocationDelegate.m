@@ -105,8 +105,7 @@
     didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
     
-    CLLocation* mostRecentLocation = [locations lastObject];
-    NSLog(@"Updated location: %@", mostRecentLocation);
+    CLLocation* mostRecentLocation = [locations lastObject];   
     if( mostRecentLocation != NULL && m_locationUpdatedListener != NULL ){
         m_locationUpdatedListener(mostRecentLocation);
     }

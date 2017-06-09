@@ -25,12 +25,7 @@ fileprivate let ROUTES_DATE_FORMATTER: () -> DateFormatter = {
 // Comparisong between two RouteMetaData
 func ==(lhs: RouteMetaData, rhs: RouteMetaData) -> Bool {
     let distanceEqual = lhs.distanceInMeters == rhs.distanceInMeters
-    
-    // rounding error will be because of deserializing dates
-    let lhsDuration = lhs.durationInSeconds.rounded(.down)
-    let rhsDuration = rhs.durationInSeconds.rounded(.down)
-    let durationEqual = lhsDuration == rhsDuration
-    
+           
     let idEqual = lhs.id == rhs.id
     
     let lhsStartTime = ROUTES_DATE_FORMATTER().string(from: lhs.startTime)
@@ -40,7 +35,7 @@ func ==(lhs: RouteMetaData, rhs: RouteMetaData) -> Bool {
     let lhsEndTime = ROUTES_DATE_FORMATTER().string(from: lhs.endTime)
     let rhsEndTime = ROUTES_DATE_FORMATTER().string(from: rhs.endTime)
     let endTimesEqual = lhsEndTime == rhsEndTime
-    return distanceEqual && durationEqual && idEqual && startTimesEqual && endTimesEqual
+    return distanceEqual && idEqual && startTimesEqual && endTimesEqual
 }
 
 /**
@@ -65,6 +60,10 @@ struct RouteMetaData {
         return endTime.timeIntervalSince(startTime)
     }
     
+    var isComplete: Bool {
+        return endTime > startTime
+    }
+    
     // a serializable version of the route meta data for storing to disk
     var serializable: SerializableRouteMetaData {
         return SerializableRouteMetaData.init(FromRouteMetaData: self)
@@ -80,7 +79,7 @@ struct RouteMetaData {
     init() {
         self.id = UUID.init().uuidString
         self.startTime = Date()
-        self.endTime = self.startTime
+        self.endTime = Date.init(timeIntervalSinceReferenceDate: 0)
         self.distanceInMeters = 0
     }
     

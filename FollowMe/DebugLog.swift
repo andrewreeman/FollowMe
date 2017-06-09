@@ -20,6 +20,8 @@ class DebugLog {
     static var instance: DebugLog {
         return s_debugLog
     }
+        
+    private init() {}
     
     func error(Message: String, File: String = #file, Function: String = #function, Line: Int = #line) {
         print("Error: " + format(Message: Message, File: File, Function: Function, Line: Line))

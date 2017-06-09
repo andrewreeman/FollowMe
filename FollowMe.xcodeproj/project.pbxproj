@@ -29,6 +29,7 @@
 		498D60F91EE8A55600404001 /* SerializableRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498D60F81EE8A55600404001 /* SerializableRoute.swift */; };
 		498F8A941EE8757D0002F2EF /* LocationTrackingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498F8A931EE8757D0002F2EF /* LocationTrackingInteractor.swift */; };
 		49B8AB5F1EE5F36600376D16 /* NSArray+ArrayExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B8AB5E1EE5F36600376D16 /* NSArray+ArrayExtensions.m */; };
+		49ED96CD1EEB40CB00290562 /* RouteInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49ED96CC1EEB40CB00290562 /* RouteInteractorTests.swift */; };
 		49FA46A21EE89EF700D8616E /* RoutesFileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA46A11EE89EF700D8616E /* RoutesFileStore.swift */; };
 		49FA46A41EE89F2600D8616E /* Paths.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA46A31EE89F2600D8616E /* Paths.swift */; };
 		49FA46A61EE8A0D700D8616E /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA46A51EE8A0D700D8616E /* DebugLog.swift */; };
@@ -97,6 +98,7 @@
 		498F8A931EE8757D0002F2EF /* LocationTrackingInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTrackingInteractor.swift; sourceTree = "<group>"; };
 		49B8AB5D1EE5F36600376D16 /* NSArray+ArrayExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+ArrayExtensions.h"; sourceTree = "<group>"; };
 		49B8AB5E1EE5F36600376D16 /* NSArray+ArrayExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+ArrayExtensions.m"; sourceTree = "<group>"; };
+		49ED96CC1EEB40CB00290562 /* RouteInteractorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteInteractorTests.swift; sourceTree = "<group>"; };
 		49FA46A11EE89EF700D8616E /* RoutesFileStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutesFileStore.swift; sourceTree = "<group>"; };
 		49FA46A31EE89F2600D8616E /* Paths.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Paths.swift; sourceTree = "<group>"; };
 		49FA46A51EE8A0D700D8616E /* DebugLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLog.swift; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 				4919E2071EE5CB5A0022F44D /* Info.plist */,
 				494C431A1EE97F01002BE916 /* RouteTests.swift */,
 				494C43191EE97F01002BE916 /* FollowMeTests-Bridging-Header.h */,
+				49ED96CC1EEB40CB00290562 /* RouteInteractorTests.swift */,
 			);
 			path = FollowMeTests;
 			sourceTree = "<group>";
@@ -613,6 +616,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4919E2061EE5CB5A0022F44D /* FollowMeTests.m in Sources */,
+				49ED96CD1EEB40CB00290562 /* RouteInteractorTests.swift in Sources */,
 				494C431B1EE97F01002BE916 /* RouteTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

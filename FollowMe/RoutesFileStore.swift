@@ -30,12 +30,14 @@ enum RouteFileStoreTransactionType {
     case update
 }
 
+typealias RouteFileStoreUpdated = (RouteFileStoreTransactionType, Route?, Error?) -> ()
+
 /**
  The directory the rotues will be kept in
 */
+
 fileprivate let ROUTES_DIR = DOCUMENT_DIR.appendingPathComponent("Routes").createFileURL()!
 class RoutesFileStore {
-    typealias RouteFileStoreUpdated = (RouteFileStoreTransactionType, RoutesFileStore, Error?) -> ()
     
     /** This is the queue we will use for writing files async. 
      We have tried to take care that no deadlocks occur by prefixing 'safe' methods with '_'
@@ -96,7 +98,7 @@ class RoutesFileStore {
      Writes the route to disk
     */
     func update(Route: Route) {
-        performAsync(TransactionType: .update) {
+        performAsync(TransactionType: .update, OnRoute: Route) {
             [weak self] in
             try self?._create(route: Route)
         }
@@ -106,14 +108,14 @@ class RoutesFileStore {
      Deletes a route
     */
     func delete(Route: Route) {
-        performAsync(TransactionType: .delete) {
+        performAsync(TransactionType: .delete, OnRoute: Route) {
             [weak self] in
             try self?._delete(Route: Route)
         }
     }
     
     func clearAllRoutes() throws {
-        performAsync(TransactionType: .delete) {
+        performAsync(TransactionType: .delete, OnRoute: nil) {
             [weak self] in
             try self?._loadAllRoutes().forEach{ try self?._delete(Route: $0) }
         }
@@ -124,6 +126,7 @@ class RoutesFileStore {
     private func performAsync(
         
         TransactionType: RouteFileStoreTransactionType,
+        OnRoute RouteTransactionAffects: Route?,
         _  transaction: @escaping () throws -> ()
         )
     {
@@ -136,12 +139,13 @@ class RoutesFileStore {
         RoutesFileStore.FILE_QUEUE.async {
             [weak self] in
             guard let this = self else { return }
-            
+            var caughtError: Error?
             do {
                 try transaction()
-                this.m_updatedListener?(TransactionType, this, nil)
-            } catch {
-                this.m_updatedListener?(TransactionType, this, error)
+            } catch { caughtError = error }
+            
+            DispatchQueue.main.async {
+                this.m_updatedListener?(TransactionType, RouteTransactionAffects, caughtError)
             }
         }
     }

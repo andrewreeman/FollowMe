@@ -8,16 +8,16 @@
 
 import Foundation
 
+/** Whenever the location is updated we will call this listener with the current location and the current tracking state (if we are tracking or
+ Swift note: ideally want the tracking state to be optional because we might not have defined it  but we can't due to exposing to obj-c
+ */
+typealias LocationUpdatedWithTrackingStateListener = (CLLocation, TrackingState) -> ()
+
 /**
  This interactor will listen to location updates and pass the updates along with the current tracking state which this interactor stores.
 */
 @objc class LocationUpdatedInteractor: NSObject {
     private static let DISTANCE_THRESHOLD = 2.0 // meters
-    
-    /** Whenever the location is updated we will call this listener with the current location and the current tracking state (if we are tracking or 
-        Swift note: ideally want the tracking state to be optional because we might not have defined it  but we can't due to exposing to obj-c
-    */
-    typealias LocationUpdatedWithTrackingStateListener = (CLLocation, TrackingState) -> ()
     
     // MARK: public properties
     

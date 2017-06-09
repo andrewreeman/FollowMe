@@ -29,7 +29,7 @@ class SerializableRouteEntry: EVObject {
 class SerializableRouteMetaData: EVObject {
     var id = ""
     var startTime = Date()
-    var endTime = Date()
+    var endTime = Date.init(timeIntervalSinceReferenceDate: 0)
     var distanceInMeters = 0
     
     init(FromRouteMetaData: RouteMetaData) {

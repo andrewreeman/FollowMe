@@ -34,7 +34,14 @@ infix operator ?=: AssignmentPrecedence
 
 func ?=<T>(left: inout T?, right: T?) {
     if left == nil {
-        left = right!
+        left = right
+    }
+}
+
+// Optional assignment: only evaluation function and assign if left is nil
+func ?=<T>(left: inout T?, right: () -> T?) {
+    if left == nil {
+        left = right()
     }
 }
 

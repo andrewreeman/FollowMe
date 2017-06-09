@@ -109,19 +109,27 @@ class RouteTestCase: XCTestCase {
         
         e.expectedFulfillmentCount = 2
         routeFileStore.updatedListener = {
-            (transactionType, fileStore, error) in
+            (transactionType, updatedRoute, error) in            
             guard error == nil
             else {
                 XCTFail("\(error!)")
                 return
             }
             
+            guard let updatedRoute = updatedRoute
+            else {
+                XCTFail("Nil passed as route when performing simple update and delete")
+                return
+            }
+            
+            XCTAssert(route == updatedRoute, "Modified route does not match original route")
             switch transactionType {
             case .update:
                 print("Updated: Fulfilling once")
                 e.fulfill()
-                fileStore.delete(Route: route)
+                routeFileStore.delete(Route: updatedRoute)
             case .delete:
+                
                 print("Deleted: Fulfilling twice")
                 e.fulfill()
             }
