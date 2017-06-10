@@ -22,6 +22,7 @@
 		4919E22E1EE5F1560022F44D /* NSString+StringExtensions_m.m in Sources */ = {isa = PBXBuildFile; fileRef = 4919E22D1EE5F1560022F44D /* NSString+StringExtensions_m.m */; };
 		492019B21EEB816200ED07C5 /* RouteTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 492019B11EEB816200ED07C5 /* RouteTableViewController.m */; };
 		492019B81EEB867800ED07C5 /* RouteTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492019B71EEB867800ED07C5 /* RouteTableDelegate.swift */; };
+		492019BA1EEB908F00ED07C5 /* SelectedUserRouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492019B91EEB908F00ED07C5 /* SelectedUserRouteViewController.swift */; };
 		492DD7E81EE74268007671AE /* LocationUpdatedInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492DD7E71EE74268007671AE /* LocationUpdatedInteractor.swift */; };
 		494C431B1EE97F01002BE916 /* RouteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494C431A1EE97F01002BE916 /* RouteTests.swift */; };
 		494C43421EE9E1BF002BE916 /* RandomGeneratable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494C43411EE9E1BF002BE916 /* RandomGeneratable.swift */; };
@@ -90,6 +91,7 @@
 		492019B11EEB816200ED07C5 /* RouteTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RouteTableViewController.m; sourceTree = "<group>"; };
 		492019B31EEB817400ED07C5 /* RouteTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RouteTableViewController.h; sourceTree = "<group>"; };
 		492019B71EEB867800ED07C5 /* RouteTableDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteTableDelegate.swift; sourceTree = "<group>"; };
+		492019B91EEB908F00ED07C5 /* SelectedUserRouteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedUserRouteViewController.swift; sourceTree = "<group>"; };
 		492DD7E71EE74268007671AE /* LocationUpdatedInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationUpdatedInteractor.swift; sourceTree = "<group>"; };
 		494C43191EE97F01002BE916 /* FollowMeTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FollowMeTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		494C431A1EE97F01002BE916 /* RouteTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteTests.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				492019B11EEB816200ED07C5 /* RouteTableViewController.m */,
 				492019B31EEB817400ED07C5 /* RouteTableViewController.h */,
 				492019B71EEB867800ED07C5 /* RouteTableDelegate.swift */,
+				492019B91EEB908F00ED07C5 /* SelectedUserRouteViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -616,6 +619,7 @@
 				492DD7E81EE74268007671AE /* LocationUpdatedInteractor.swift in Sources */,
 				492019B81EEB867800ED07C5 /* RouteTableDelegate.swift in Sources */,
 				49B8AB5F1EE5F36600376D16 /* NSArray+ArrayExtensions.m in Sources */,
+				492019BA1EEB908F00ED07C5 /* SelectedUserRouteViewController.swift in Sources */,
 				4968CBDB1EE7629500A94D61 /* Common.swift in Sources */,
 				492019B21EEB816200ED07C5 /* RouteTableViewController.m in Sources */,
 				494C43461EEA017A002BE916 /* RouteInteractor.swift in Sources */,

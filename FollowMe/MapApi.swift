@@ -40,7 +40,7 @@ fileprivate let API_KEY = "AIzaSyCX1gLWDC5ZsiXqUr6oEhGfmHlLm5tQWNY"
     }
     
     // Create a map view
-    @objc func createMap(WithFrame: CGRect) -> GMSMapView {
+    @objc func createMap(WithFrame: CGRect) -> UIView {
         let camera = GMSCameraPosition.camera(withLatitude: 53.3646193, longitude: -1.5047846, zoom: MapApi.ZOOM_LEVEL)
         let map =  GMSMapView.map(withFrame: WithFrame, camera: camera)
         map.isMyLocationEnabled = true
@@ -91,5 +91,14 @@ fileprivate let API_KEY = "AIzaSyCX1gLWDC5ZsiXqUr6oEhGfmHlLm5tQWNY"
         }
         
         m_gmsPolyline.path = m_path
+    }
+}
+
+extension Route {
+    var toGoogleMapPath: GMSMutablePath {
+        return self.path.reduce(GMSMutablePath.init(), {
+            $0.add($1.location)
+            return $0
+        })
     }
 }
