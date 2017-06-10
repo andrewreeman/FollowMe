@@ -30,7 +30,7 @@ class RouteInteractor {
         }
     }
     
-    
+    /*
     var routeUpdated: RouteFileStoreUpdated? {
         get {
             return m_routesFileStore?.updatedListener
@@ -38,8 +38,14 @@ class RouteInteractor {
         set {
             m_routesFileStore?.updatedListener = newValue
         }
-    }
+    }*/
     
+    /** 
+     This is the callback that will be triggered on every location update
+     When the tracking is on it will start a new route or append to an existing route
+     When the tracking is off it will complete the current route if there is one
+     After any route changes we will then update the ui
+    */
     var locationUpdated: LocationUpdatedWithTrackingStateListener {
         return {
             [weak self]

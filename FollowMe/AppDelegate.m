@@ -23,10 +23,7 @@ LocationDelegate* m_locationDelegate;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
-    
-    
-    self.mapApi = [[MapApi alloc]init];
+                
     self.locationUpdatedInteractor = [[LocationUpdatedInteractor alloc]init];
     self.locationTrackingInteractor = [[LocationTrackingInteractor alloc]init];
     self.routeInteractor = [[RouteInteractorObjCWrapper alloc]init];

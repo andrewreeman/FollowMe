@@ -21,7 +21,7 @@ import Foundation
         return m_routeInteractor.locationUpdated
     }
     
-    // taking advantage of the fact that the serializable route is the same as the route
+   /* // taking advantage of the fact that the serializable route is the same as the route
     // however...this means the WHOLE route is serialized every time...
     @objc func setRouteUpdatedListener(
         routeUpdatedListenerForObjC:
@@ -38,7 +38,7 @@ import Foundation
             )
         
         }
-    }
+    }*/
     
     @objc func setUiUpdateListener(
         _ listener: @escaping LocationUpdatedWithTrackingStateListener

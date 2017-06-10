@@ -19,12 +19,17 @@ fileprivate let API_KEY = "AIzaSyCX1gLWDC5ZsiXqUr6oEhGfmHlLm5tQWNY"
 */
 @objc class MapApi: NSObject {
     private static let ZOOM_LEVEL = Float(15)
+    private static var GMS_HAS_BEEN_INIT = false
     
     private let m_path = GMSMutablePath()
     private let m_gmsPolyline = GMSPolyline.init()
     
     override init() {
-        GMSServices.provideAPIKey(API_KEY)
+        
+        if !MapApi.GMS_HAS_BEEN_INIT {
+            GMSServices.provideAPIKey(API_KEY)
+            MapApi.GMS_HAS_BEEN_INIT = true
+        }
         
         m_gmsPolyline.strokeWidth = 6
         
@@ -49,24 +54,35 @@ fileprivate let API_KEY = "AIzaSyCX1gLWDC5ZsiXqUr6oEhGfmHlLm5tQWNY"
     }
     
     
-    // Update the map the latest coordinates
+    /**
+     Update the map the latest coordinates
+     We are passing a UIView instead of a GMSMapView because we are really trying to hide the google api just in this class where possible
+    */
     func update(
-        Map: GMSMapView,
+        Map: UIView,
         ToLocation location: CLLocation,
         WithTrackingState: TrackingState
     )
     {
+        guard let map = Map as? GMSMapView
+        else {
+            DebugLog.instance.error(Message: "Map is NOT a gms map view!")
+            return
+        }
+        
         let updateCamera = GMSCameraUpdate.setTarget(location.coordinate, zoom: MapApi.ZOOM_LEVEL)
-        Map.moveCamera(updateCamera)
+        map.moveCamera(updateCamera)
         
         switch WithTrackingState {
         case .TrackingOn:
+            print("Tracking on...")
             m_path.add(location.coordinate)
             
             if m_gmsPolyline.map == nil {
-                m_gmsPolyline.map = Map
+                m_gmsPolyline.map = map
             }
         case .TrackingOff:
+            print("Tracking off...")
             if m_gmsPolyline.map != nil {
                 m_path.removeAllCoordinates()
                 m_gmsPolyline.map = nil

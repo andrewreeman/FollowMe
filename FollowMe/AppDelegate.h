@@ -22,7 +22,6 @@
 
 @property (readonly, strong) NSPersistentContainer *persistentContainer;
 
-@property (strong) MapApi *mapApi;
 //@property (strong) LocationDelegate *locationDelegate;
 @property (strong) LocationUpdatedInteractor* locationUpdatedInteractor;
 @property (strong) LocationTrackingInteractor* locationTrackingInteractor;

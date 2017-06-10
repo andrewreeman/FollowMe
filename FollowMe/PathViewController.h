@@ -9,8 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "LocationDelegate.h"
 
-@import GoogleMaps;
-
 /**
  This will show the users current location on the map complete with a toggle for selecting if they want tracking on or off.
 */

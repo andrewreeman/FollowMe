@@ -27,9 +27,8 @@ MapApi* m_mapApi;
     [super viewDidLoad];
     
     // init map
-    AppDelegate* app = [AppDelegate getApp];
-    m_mapApi = app.mapApi;
-    GMSMapView* map = [m_mapApi createMapWithFrame: self.view.frame];
+    m_mapApi = [[MapApi alloc]init];
+    UIView* map = (UIView*)[m_mapApi createMapWithFrame: self.view.frame];
     map.center = self.view.center;
     [self.view addSubview:map];
     [self.view sendSubviewToBack:map];
@@ -45,6 +44,7 @@ MapApi* m_mapApi;
     [[self.switchContainer layer]setBorderWidth:1.0];
     
     
+    AppDelegate* app = [AppDelegate getApp];
     // init tracking: when updated will update ui
     [app startListeningToTrackingStateUsing:^(TrackingState newTrackingState) {
         dispatch_async(dispatch_get_main_queue(), ^{
