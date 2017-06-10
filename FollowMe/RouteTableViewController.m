@@ -26,7 +26,9 @@ SerializableRoute* _Nullable  m_selectedRoute;
 
 -(void) viewDidLoad {
     m_selectedRoute = NULL;
-    m_tableDelegate = [[RouteTableDelegate alloc]init];
+    m_tableDelegate = [[RouteTableDelegate alloc]initWithPresenter:self AndDataSourceListener:^{
+        [self reload];
+    }];
     [[self m_routeTable] setDelegate:m_tableDelegate];
     [[self m_routeTable] setDataSource:m_tableDelegate];
     
@@ -48,6 +50,13 @@ SerializableRoute* _Nullable  m_selectedRoute;
     }
 }
 
+// MARK: RouteTableMessagePresenter methods
+-(void)presentWithAlert:(UIAlertController * _Nonnull)Alert {
+    [self presentViewController:Alert animated:true completion:nil];
+}
+
+
+// MARK: private methods
 -(void) reload {
     [m_tableDelegate reloadData];
     [_m_routeTable reloadData];

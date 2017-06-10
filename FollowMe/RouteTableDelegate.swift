@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+ @objc protocol RouteTableMessagePresenter: class {
+    func present(Alert: UIAlertController)
+ }
+ 
 @objc class RouteTableDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
     
     private var m_routes = [RouteMetaData]()
@@ -26,9 +30,21 @@ import UIKit
         }
     }
     
-    override init() {
+    private let m_presenter: RouteTableMessagePresenter
+    
+    @objc init(
+        WithPresenter: RouteTableMessagePresenter,
+        AndDataSourceListener: @escaping () -> ()
+    )
+    {
         m_routesFileStore = RoutesFileStore.init()
+        m_routesFileStore?.updatedListener = {
+            (transaction, route, error) in
+            AndDataSourceListener()
+        }
         m_routes =? m_routesFileStore.flatMap{ try? $0.retrieveRouteMetaData() }
+        m_presenter = WithPresenter
+        super.init()
     }
     
     // MARK: data source methods
@@ -57,9 +73,16 @@ import UIKit
         
         let cancel = UIAlertAction.init(title: "cancel".localized, style: .cancel, handler: nil)
         let delete = UIAlertAction.init(title: "delete".localized, style: .destructive) { (_) in
-            self.confirmDelete()
+            self.confirmDelete(Route: route)
         }
         
+        let rename = UIAlertAction.init(title: "rename".localized, style: .default) { (_) in
+            self.confirmRename(Route: route)
+        }
+        
+        [rename, delete, cancel].forEach{ alert.addAction($0) }
+        
+        m_presenter.present(Alert: alert)
     }
     
     // MARK: delegate methods
@@ -74,13 +97,61 @@ import UIKit
         
         callback(route.serializable)
     }
-    
+        
     // public methods 
     func reloadData() {
         m_routes =? m_routesFileStore.flatMap{ try? $0.retrieveRouteMetaData() }
     }
     
-    func confirmDelete() {
+    func confirmDelete(Route routeMetaData: RouteMetaData) {
+        let message = String.init(format: "deleteConfirm".localized, routeMetaData.displayName)
         
+        let confirmDeleteAlert = UIAlertController.init(
+            title: "delete".localized,
+            message: message,
+            preferredStyle: .alert
+        )
+        
+        let cancel = UIAlertAction.init(title: "cancel".localized, style: .cancel, handler: nil)
+        let ok = UIAlertAction.init(title: "ok".localized, style: .destructive) { (_) in
+            if let route = self.m_routesFileStore?.getRouteFor(RouteMetaData: routeMetaData) {
+                self.m_routesFileStore?.delete(Route: route)
+            }
+        }
+        
+        confirmDeleteAlert.addAction(cancel)
+        confirmDeleteAlert.addAction(ok)
+        
+        m_presenter.present(Alert: confirmDeleteAlert)
+    }
+    
+    func confirmRename(Route routeMetaData: RouteMetaData) {
+        let message = String.init(format: "renameConfirm".localized, routeMetaData.displayName)
+        let confirmRenameAlert = UIAlertController.init(
+            title: "rename".localized, message: message, preferredStyle: .alert
+        )
+        
+        confirmRenameAlert.addTextField {
+            $0.keyboardType = UIKeyboardType.alphabet
+        }
+        let cancel = UIAlertAction.init(title: "cancel".localized, style: .cancel, handler: nil)
+        let ok = UIAlertAction.init(title: "ok".localized, style: .destructive) { (_) in
+            guard let nameField = confirmRenameAlert.textFields?.first
+            else { return }
+            
+            guard let newName = nameField.text else { return }
+            guard !newName.isEmpty else { return }
+            
+            
+            if let route = self.m_routesFileStore?.getRouteFor(RouteMetaData: routeMetaData) {
+                route.set(Name: newName)
+                self.m_routesFileStore?.update(Route: route)
+            }
+        }
+        
+        confirmRenameAlert.addAction(cancel)
+        confirmRenameAlert.addAction(ok)
+        
+        m_presenter.present(Alert: confirmRenameAlert)        
     }
 }

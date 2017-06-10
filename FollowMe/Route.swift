@@ -60,11 +60,6 @@ struct RouteMetaData {
         get {
             return name.isEmpty ? startTimeString : name
         }
-        set {
-            if newValue.characters.count < 30 {
-                name = newValue
-            }
-        }
     }
     
     // the total distance in meters of the route
@@ -102,7 +97,7 @@ struct RouteMetaData {
         self.name = ""
         self.name = startTimeString
     }
-    
+   
     init(WithId: String, StartTime: Date, EndTime: Date, Distance: Int) {
         self.id = WithId
         self.startTime = StartTime
@@ -113,9 +108,23 @@ struct RouteMetaData {
         self.name = startTimeString
     }
     
+    init(WithId: String, StartTime: Date, EndTime: Date, Distance: Int, DisplayName: String) {
+        self.id = WithId
+        self.startTime = StartTime
+        self.endTime = EndTime
+        self.distanceInMeters = Distance
+        self.name = DisplayName
+    }
+    
     func with(NewDistance: Int) -> RouteMetaData {
         return RouteMetaData.init(
-            WithId: self.id, StartTime: self.startTime, EndTime: self.endTime, Distance: NewDistance
+            WithId: self.id, StartTime: self.startTime, EndTime: self.endTime, Distance: NewDistance, DisplayName: self.displayName
+        )
+    }
+    
+    func with(NewDisplayName: String) -> RouteMetaData {
+        return RouteMetaData.init(
+            WithId: self.id, StartTime: self.startTime, EndTime: self.endTime, Distance: self.distanceInMeters, DisplayName: NewDisplayName
         )
     }
     
@@ -225,6 +234,10 @@ final class Route {
     // Used for when the user has stopped tracking
     func completeRoute() {
         self.m_routeMetaData = m_routeMetaData.completeRoute()
+    }
+    
+    func set(Name: String) {
+        self.m_routeMetaData = m_routeMetaData.with(NewDisplayName: Name)
     }
     
     // Adds an entry to the path and creates a new meta data with a new distance
