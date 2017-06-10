@@ -20,8 +20,18 @@ fileprivate let API_KEY = "AIzaSyCX1gLWDC5ZsiXqUr6oEhGfmHlLm5tQWNY"
 @objc class MapApi: NSObject {
     private static let ZOOM_LEVEL = Float(15)
     
+    private let m_path = GMSMutablePath()
+    private let m_gmsPolyline = GMSPolyline.init()
+    
     override init() {
         GMSServices.provideAPIKey(API_KEY)
+        
+        m_gmsPolyline.strokeWidth = 6
+        
+        // google map color
+        m_gmsPolyline.strokeColor = UIColor.init(
+            colorLiteralRed: 0.122, green: 0.706, blue: 0.980, alpha: 1.00
+        )
     }
     
     // Create a map view
@@ -34,13 +44,36 @@ fileprivate let API_KEY = "AIzaSyCX1gLWDC5ZsiXqUr6oEhGfmHlLm5tQWNY"
             let updateCamera = GMSCameraUpdate.setTarget(myCoordinates, zoom: MapApi.ZOOM_LEVEL)
             map.moveCamera(updateCamera)
         }
-        
+        m_gmsPolyline.map = map
         return map
     }
     
+    
     // Update the map the latest coordinates
-    func update(Map: GMSMapView, ToLocation location: CLLocation) {        
+    func update(
+        Map: GMSMapView,
+        ToLocation location: CLLocation,
+        WithTrackingState: TrackingState
+    )
+    {
         let updateCamera = GMSCameraUpdate.setTarget(location.coordinate, zoom: MapApi.ZOOM_LEVEL)
         Map.moveCamera(updateCamera)
+        
+        switch WithTrackingState {
+        case .TrackingOn:
+            m_path.add(location.coordinate)
+            
+            if m_gmsPolyline.map == nil {
+                m_gmsPolyline.map = Map
+            }
+        case .TrackingOff:
+            if m_gmsPolyline.map != nil {
+                m_path.removeAllCoordinates()
+                m_gmsPolyline.map = nil
+            }
+        default: break
+        }
+        
+        m_gmsPolyline.path = m_path
     }
 }
