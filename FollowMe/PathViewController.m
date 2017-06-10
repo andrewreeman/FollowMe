@@ -79,10 +79,7 @@ MapApi* m_mapApi;
     {
         switch(transaction) {
             case RouteFileStoreTransactionTypeUpdate: {
-                NSDate* endTime = [[route routeMetaData]endTime];
-                NSDate* startTime = [[route routeMetaData]startTime];
-                
-                if( [startTime compare:endTime] == NSOrderedAscending ) {
+                if( [[route routeMetaData] isComplete] ) {
                     [[self view] makeToast:[@"routeComplete" localized]];
                 }
             }

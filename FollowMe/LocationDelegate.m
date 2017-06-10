@@ -36,6 +36,9 @@
     m_presenter = presenter;
 }
 
+-(void)stop {
+    [m_manager stopUpdatingLocation];
+}
 /**
  Will check location services is on and is not denied. Asks for permission where neccessary
 */
@@ -54,6 +57,7 @@
         case IN_APP: {
             if ([m_manager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
                 [m_manager requestWhenInUseAuthorization];
+                
             }
             break;
         }

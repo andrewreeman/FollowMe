@@ -48,9 +48,24 @@ struct RouteMetaData {
     
     // when the user started tracking
     let startTime: Date
+    var startTimeString: String {
+        return ROUTES_DATE_FORMATTER().string(from: self.startTime)
+    }
     
     // when the user stopped tracking
     let endTime: Date
+    
+    private var name: String
+    var displayName: String {
+        get {
+            return name.isEmpty ? startTimeString : name
+        }
+        set {
+            if newValue.characters.count < 30 {
+                name = newValue
+            }
+        }
+    }
     
     // the total distance in meters of the route
     let distanceInMeters: Int
@@ -72,6 +87,7 @@ struct RouteMetaData {
     init(FromSerializable: SerializableRouteMetaData) {
         self.id = FromSerializable.id
         self.startTime = FromSerializable.startTime
+        self.name = FromSerializable.name
         self.endTime = FromSerializable.endTime
         self.distanceInMeters = FromSerializable.distanceInMeters
     }
@@ -81,6 +97,10 @@ struct RouteMetaData {
         self.startTime = Date()
         self.endTime = Date.init(timeIntervalSinceReferenceDate: 0)
         self.distanceInMeters = 0
+        
+        // need to set to empty string first because of silly Swift things. All properties must be init first before calling any methods/computedproperties
+        self.name = ""
+        self.name = startTimeString
     }
     
     init(WithId: String, StartTime: Date, EndTime: Date, Distance: Int) {
@@ -88,6 +108,9 @@ struct RouteMetaData {
         self.startTime = StartTime
         self.endTime = EndTime
         self.distanceInMeters = Distance
+        
+        self.name = ""
+        self.name = startTimeString
     }
     
     func with(NewDistance: Int) -> RouteMetaData {

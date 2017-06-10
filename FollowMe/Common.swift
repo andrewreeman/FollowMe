@@ -23,8 +23,13 @@ func easyTry(_ f: () throws -> ()) -> Bool {
 
 // ruby like :)
 extension Collection {
-    public var hasItems: Bool {
+    var hasItems: Bool {
         return !self.isEmpty
+    }
+    
+    /// Returns the element at the specified index if it is within bounds, otherwise nil.
+    subscript (safe index: Index) -> Iterator.Element? {
+        return index >= startIndex && index < endIndex ? self[index] : nil
     }
 }
 

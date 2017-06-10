@@ -41,6 +41,7 @@ typedef enum LocationUsages {
 -(void)setLocationUpdatedListener:(LocationUpdatedListener)listener;
 -(void)startUpdatingLocation:(LocationUsage)usage;
 -(void)checkAuthorisation:(LocationUsage)usage;
+-(void)stop;
 @end
 
 #endif /* LocationDelegate_h */

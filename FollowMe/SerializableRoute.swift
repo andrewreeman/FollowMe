@@ -31,12 +31,18 @@ import EVReflection
     var startTime = Date()
     var endTime = Date.init(timeIntervalSinceReferenceDate: 0)
     var distanceInMeters = 0
+    var name = ""
+    
+    var isComplete: Bool {
+        return startTime < endTime
+    }
     
     init(FromRouteMetaData: RouteMetaData) {
         self.id = FromRouteMetaData.id
         self.startTime = FromRouteMetaData.startTime
         self.endTime = FromRouteMetaData.endTime
         self.distanceInMeters = FromRouteMetaData.distanceInMeters
+        self.name = FromRouteMetaData.displayName
     }
     
     required init(){}
