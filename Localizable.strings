@@ -6,3 +6,5 @@
 "ok" = "OK";
 "trackingOn" = "Tracking...";
 "trackingOff" = "Start tracking";
+
+"routeComplete" = "Route complete 😀";

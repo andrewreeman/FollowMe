@@ -6,6 +6,7 @@ target 'FollowMe' do
   # Pods for FollowMe
   pod 'GoogleMaps'
   pod 'EVReflection'
+  pod 'Toast'
 
   target 'FollowMeTests' do
     inherit! :search_paths

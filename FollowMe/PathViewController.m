@@ -10,6 +10,8 @@
 #import "AppDelegate.h"
 #import "NSString+StringExtensions_m.m"
 
+@import Toast;
+
 @interface PathViewController ()
 
 @end
@@ -65,6 +67,29 @@ MapApi* m_mapApi;
                 ];
             }
         });
+    }];
+    
+    // listen for when a route is complete
+    [[app routeInteractor] setRouteUpdatedListenerWithRouteUpdatedListenerForObjC:
+    ^(
+      enum RouteFileStoreTransactionType transaction,
+      SerializableRoute * _Nullable route,
+      NSString * _Nullable error
+    )
+    {
+        switch(transaction) {
+            case RouteFileStoreTransactionTypeUpdate: {
+                NSDate* endTime = [[route routeMetaData]endTime];
+                NSDate* startTime = [[route routeMetaData]startTime];
+                
+                if( [startTime compare:endTime] == NSOrderedAscending ) {
+                    [[self view] makeToast:[@"routeComplete" localized]];
+                }
+            }
+                break;
+            default: break;
+        }
+        
     }];
     
     // ensure tracking is off and refresh tracking state

@@ -30,7 +30,7 @@ class RouteInteractor {
         }
     }
     
-    /*
+    
     var routeUpdated: RouteFileStoreUpdated? {
         get {
             return m_routesFileStore?.updatedListener
@@ -38,7 +38,7 @@ class RouteInteractor {
         set {
             m_routesFileStore?.updatedListener = newValue
         }
-    }*/
+    }
     
     /** 
      This is the callback that will be triggered on every location update
