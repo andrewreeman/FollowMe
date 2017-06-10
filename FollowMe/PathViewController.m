@@ -59,7 +59,10 @@ MapApi* m_mapApi;
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             if(location != NULL) {
-                [m_mapApi updateWithMap:map ToLocation:location];
+                [m_mapApi updateWithMap:map
+                    ToLocation:location
+                    WithTrackingState: trackingState
+                ];
             }
         });
     }];

@@ -128,6 +128,11 @@ class RouteInteractorTests: XCTestCase {
             }
         }
         
+        do {
+            try RoutesFileStore()?.clearAllRoutes()
+        } catch {
+            XCTFail("\(error)")
+        }        
         let routeInteractor = RouteInteractor.init()
         let locationUpdated = routeInteractor.locationUpdated
         let e = expectation(description: "That the stored route will have multiple locations")
@@ -171,6 +176,7 @@ class RouteInteractorTests: XCTestCase {
                         })
                         XCTAssert(locationsAreEqual, "Loaded path and locations are not equal")
                         e.fulfill()
+                        
                     }
                     else if let nextLocation = mutableLocations.popLast() {
                         let newTrackingState = mutableLocations.isEmpty

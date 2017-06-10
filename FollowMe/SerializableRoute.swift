@@ -12,7 +12,7 @@ import EVReflection
 /**
  Very simple classes for serialization using the EVReflection library
  */
-class SerializableRouteEntry: EVObject {
+@objc class SerializableRouteEntry: EVObject {
     var time = Date()
     var latitude = 0.0
     var longitude = 0.0
@@ -26,7 +26,7 @@ class SerializableRouteEntry: EVObject {
     required init() {}
 }
 
-class SerializableRouteMetaData: EVObject {
+@objc class SerializableRouteMetaData: EVObject {
     var id = ""
     var startTime = Date()
     var endTime = Date.init(timeIntervalSinceReferenceDate: 0)
@@ -42,7 +42,7 @@ class SerializableRouteMetaData: EVObject {
     required init(){}
 }
 
-class SerializableRoute: EVObject {
+@objc class SerializableRoute: EVObject {
     var routeMetaData = SerializableRouteMetaData()
     var path = [SerializableRouteEntry]()
     

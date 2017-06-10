@@ -25,7 +25,7 @@ import Foundation
 /**
  The types of transactions the listener will be told happened
 */
-enum RouteFileStoreTransactionType {
+@objc enum RouteFileStoreTransactionType: Int {
     case delete
     case update
 }
@@ -116,8 +116,7 @@ class RoutesFileStore {
     
     func clearAllRoutes() throws {
         performAsync(TransactionType: .delete, OnRoute: nil) {
-            [weak self] in
-            try self?._loadAllRoutes().forEach{ try self?._delete(Route: $0) }
+            try FileManager.default.removeItem(at: ROUTES_DIR)
         }
     }
     
@@ -138,14 +137,14 @@ class RoutesFileStore {
         
         RoutesFileStore.FILE_QUEUE.async {
             [weak self] in
-            guard let this = self else { return }
+            
             var caughtError: Error?
             do {
                 try transaction()
             } catch { caughtError = error }
             
             DispatchQueue.main.async {
-                this.m_updatedListener?(TransactionType, RouteTransactionAffects, caughtError)
+                self?.m_updatedListener?(TransactionType, RouteTransactionAffects, caughtError)
             }
         }
     }
@@ -204,6 +203,8 @@ fileprivate extension RouteMetaData {
     }
     
     var dir: URL {
+        let directory = ROUTES_DIR.appendingPathComponent(self.id)
+        print("Dir is: \(directory)")
         return ROUTES_DIR.appendingPathComponent(self.id)
     }
     

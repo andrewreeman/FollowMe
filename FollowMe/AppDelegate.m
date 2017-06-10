@@ -29,6 +29,7 @@ LocationDelegate* m_locationDelegate;
     self.mapApi = [[MapApi alloc]init];
     self.locationUpdatedInteractor = [[LocationUpdatedInteractor alloc]init];
     self.locationTrackingInteractor = [[LocationTrackingInteractor alloc]init];
+    self.routeInteractor = [[RouteInteractorObjCWrapper alloc]init];
     m_locationDelegate = [[LocationDelegate alloc]init];
     
     return YES;
@@ -117,9 +118,11 @@ LocationDelegate* m_locationDelegate;
 -(void)startLocationUpdatesUsingPresenter: (NSObject<LocationMessagePresenter>*)presenter AndUiLocationUpdateListener:  (void(^)(CLLocation*, TrackingState))locationUiUpdateListener
 {
     
-    [self locationUpdatedInteractor].locationUpdatedListener = locationUiUpdateListener;
+    [[self routeInteractor] setUiUpdateListener:locationUiUpdateListener];
+    [self locationUpdatedInteractor].locationUpdatedListener = [[self routeInteractor]locationUpdated];
     [m_locationDelegate setPresenter:presenter];
     [m_locationDelegate setLocationUpdatedListener:[[self locationUpdatedInteractor] locationUpdated]];
+    
     [self startUpdatingLocation];
 }
 

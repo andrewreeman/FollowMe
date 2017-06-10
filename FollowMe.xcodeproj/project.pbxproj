@@ -26,6 +26,7 @@
 		494C43461EEA017A002BE916 /* RouteInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494C43451EEA017A002BE916 /* RouteInteractor.swift */; };
 		4968CBDB1EE7629500A94D61 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4968CBDA1EE7629500A94D61 /* Common.swift */; };
 		497748BD1EE74F0700A50CD9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 497748BC1EE74F0700A50CD9 /* Localizable.strings */; };
+		497D7B8A1EEB678F0062DAA0 /* RouteInteractorObjCWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497D7B891EEB678F0062DAA0 /* RouteInteractorObjCWrapper.swift */; };
 		498D60F91EE8A55600404001 /* SerializableRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498D60F81EE8A55600404001 /* SerializableRoute.swift */; };
 		498F8A941EE8757D0002F2EF /* LocationTrackingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498F8A931EE8757D0002F2EF /* LocationTrackingInteractor.swift */; };
 		49B8AB5F1EE5F36600376D16 /* NSArray+ArrayExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 49B8AB5E1EE5F36600376D16 /* NSArray+ArrayExtensions.m */; };
@@ -94,6 +95,7 @@
 		497748B41EE74A3800A50CD9 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/Main.strings"; sourceTree = "<group>"; };
 		497748B51EE74A3900A50CD9 /* en-GB */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "en-GB"; path = "en-GB.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		497748BC1EE74F0700A50CD9 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		497D7B891EEB678F0062DAA0 /* RouteInteractorObjCWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteInteractorObjCWrapper.swift; sourceTree = "<group>"; };
 		498D60F81EE8A55600404001 /* SerializableRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SerializableRoute.swift; sourceTree = "<group>"; };
 		498F8A931EE8757D0002F2EF /* LocationTrackingInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationTrackingInteractor.swift; sourceTree = "<group>"; };
 		49B8AB5D1EE5F36600376D16 /* NSArray+ArrayExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+ArrayExtensions.h"; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 				492DD7E71EE74268007671AE /* LocationUpdatedInteractor.swift */,
 				498F8A931EE8757D0002F2EF /* LocationTrackingInteractor.swift */,
 				494C43451EEA017A002BE916 /* RouteInteractor.swift */,
+				497D7B891EEB678F0062DAA0 /* RouteInteractorObjCWrapper.swift */,
 			);
 			name = Interactors;
 			sourceTree = "<group>";
@@ -593,6 +596,7 @@
 				4919E22E1EE5F1560022F44D /* NSString+StringExtensions_m.m in Sources */,
 				4919E1F01EE5CB590022F44D /* PathViewController.m in Sources */,
 				49FA46A61EE8A0D700D8616E /* DebugLog.swift in Sources */,
+				497D7B8A1EEB678F0062DAA0 /* RouteInteractorObjCWrapper.swift in Sources */,
 				49FA46A91EE8A2DF00D8616E /* Route.swift in Sources */,
 				4919E2241EE5E1A40022F44D /* LocationDelegate.m in Sources */,
 				498F8A941EE8757D0002F2EF /* LocationTrackingInteractor.swift in Sources */,

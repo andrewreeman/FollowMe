@@ -26,6 +26,7 @@
 //@property (strong) LocationDelegate *locationDelegate;
 @property (strong) LocationUpdatedInteractor* locationUpdatedInteractor;
 @property (strong) LocationTrackingInteractor* locationTrackingInteractor;
+@property (strong) RouteInteractorObjCWrapper* routeInteractor;
 
 + (AppDelegate*) getApp;
 - (void)saveContext;
