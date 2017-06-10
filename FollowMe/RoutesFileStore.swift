@@ -80,7 +80,9 @@ class RoutesFileStore {
      */
     func retrieveRouteMetaData() throws -> [RouteMetaData] {
         return try RoutesFileStore.FILE_QUEUE.sync {
-            return try _loadAllRoutes().map{ $0.routeMetaData }
+            return try _loadAllRoutes().map{ $0.routeMetaData }.sorted{
+                $0.0.startTime < $0.1.startTime
+            }
         }
     }
     

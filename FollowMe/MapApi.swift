@@ -41,7 +41,14 @@ fileprivate let API_KEY = "AIzaSyCX1gLWDC5ZsiXqUr6oEhGfmHlLm5tQWNY"
     
     // Create a map view
     @objc func createMap(WithFrame: CGRect) -> UIView {
-        let camera = GMSCameraPosition.camera(withLatitude: 53.3646193, longitude: -1.5047846, zoom: MapApi.ZOOM_LEVEL)
+        return createMap(
+            WithFrame: WithFrame,
+            AtCoordinates: CLLocationCoordinate2D.init(latitude: 53.3646193, longitude: -1.5047846)
+        )
+    }
+    
+    func createMap(WithFrame: CGRect, AtCoordinates: CLLocationCoordinate2D) -> UIView {
+        let camera = GMSCameraPosition.camera(withLatitude: AtCoordinates.latitude, longitude: AtCoordinates.longitude, zoom: MapApi.ZOOM_LEVEL)
         let map =  GMSMapView.map(withFrame: WithFrame, camera: camera)
         map.isMyLocationEnabled = true
         
@@ -49,6 +56,28 @@ fileprivate let API_KEY = "AIzaSyCX1gLWDC5ZsiXqUr6oEhGfmHlLm5tQWNY"
             let updateCamera = GMSCameraUpdate.setTarget(myCoordinates, zoom: MapApi.ZOOM_LEVEL)
             map.moveCamera(updateCamera)
         }
+        m_gmsPolyline.map = map
+        return map
+    }
+    
+    
+    func createMap(WithFrame: CGRect, AndRoute route: Route) -> UIView {
+        let map: GMSMapView
+        
+        if let firstLocation = route.path.first {
+            map = createMap(WithFrame: WithFrame, AtCoordinates: firstLocation.location) as! GMSMapView
+        }
+        else {
+            map = createMap(WithFrame: WithFrame) as! GMSMapView
+        }
+        
+        
+        m_path.removeAllCoordinates()
+        route.path.forEach {
+            m_path.add($0.location)
+        }
+        
+        m_gmsPolyline.path = m_path
         m_gmsPolyline.map = map
         return map
     }
@@ -91,14 +120,5 @@ fileprivate let API_KEY = "AIzaSyCX1gLWDC5ZsiXqUr6oEhGfmHlLm5tQWNY"
         }
         
         m_gmsPolyline.path = m_path
-    }
-}
-
-extension Route {
-    var toGoogleMapPath: GMSMutablePath {
-        return self.path.reduce(GMSMutablePath.init(), {
-            $0.add($1.location)
-            return $0
-        })
     }
 }

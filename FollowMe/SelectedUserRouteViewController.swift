@@ -25,11 +25,19 @@ class SelectedUserRouteViewController: UIViewController {
     private let m_mapApi = MapApi.init()
     
     override func viewDidLoad() {
-        let map = m_mapApi.createMap(WithFrame: self.view.frame)
-        map.center = self.view.center
+        if let route = m_route {
+            let map = m_mapApi.createMap(WithFrame: self.view.frame, AndRoute: route)
+            map.center = self.view.center
         
-        self.view.addSubview(map)
-        self.view.sendSubview(toBack: map)                
+            self.view.addSubview(map)
+            self.view.sendSubview(toBack: map)
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if m_route == nil {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
 }
