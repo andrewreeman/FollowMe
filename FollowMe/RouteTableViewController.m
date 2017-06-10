@@ -37,7 +37,7 @@ SerializableRoute* _Nullable  m_selectedRoute;
 }
 
 -(void) viewDidAppear:(BOOL)animated {
-    [_m_routeTable reloadData];
+    [self reload];
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -46,6 +46,11 @@ SerializableRoute* _Nullable  m_selectedRoute;
         
         [vc setRoute:m_selectedRoute];
     }
+}
+
+-(void) reload {
+    [m_tableDelegate reloadData];
+    [_m_routeTable reloadData];
 }
 
 @end

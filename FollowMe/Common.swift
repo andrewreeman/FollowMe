@@ -59,6 +59,15 @@ func =?<T>(left: inout T, right: T?) {
     }
 }
 
+extension String {
+    // -(NSString*)localized {
+ //   return NSLocalizedString(self, "");
+//}
+    var localized: String {
+        return NSLocalizedString(self, comment: "")
+    }
+}
+
 
 extension CLLocationCoordinate2D {
     var clLocation: CLLocation {

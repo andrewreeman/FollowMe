@@ -33,6 +33,7 @@
 
 // takes a tracking state listener
 -(void)startListeningToTrackingStateUsing:(void(^)(TrackingState)) newTrackingState;
+-(void)stopLocationUpdates;
 
 @end
 

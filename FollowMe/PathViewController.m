@@ -122,6 +122,12 @@ MapApi* m_mapApi;
     [self presentViewController:alert animated:true completion: nil];
 }
 
+-(IBAction)onBackTapped {
+    [[AppDelegate getApp] stopLocationUpdates];
+    
+    [self dismissViewControllerAnimated:true completion:nil];
+}
+
 // MARK: private methods
 
 /**

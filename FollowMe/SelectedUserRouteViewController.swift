@@ -40,4 +40,8 @@ class SelectedUserRouteViewController: UIViewController {
         }
     }
     
+    @IBAction func backTapped() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
 }

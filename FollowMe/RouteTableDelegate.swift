@@ -44,8 +44,22 @@ import UIKit
         
         cell.textLabel?.text = route.displayName
         cell.detailTextLabel?.text = "\(route.distanceInMeters)m"
-        
+                       
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        guard let route = m_routes[safe: indexPath.row] else { return }
+        
+        let alert = UIAlertController.init(
+            title: route.displayName, message: "", preferredStyle: .actionSheet
+        )
+        
+        let cancel = UIAlertAction.init(title: "cancel".localized, style: .cancel, handler: nil)
+        let delete = UIAlertAction.init(title: "delete".localized, style: .destructive) { (_) in
+            self.confirmDelete()
+        }
+        
     }
     
     // MARK: delegate methods
@@ -61,5 +75,12 @@ import UIKit
         callback(route.serializable)
     }
     
-
+    // public methods 
+    func reloadData() {
+        m_routes =? m_routesFileStore.flatMap{ try? $0.retrieveRouteMetaData() }
+    }
+    
+    func confirmDelete() {
+        
+    }
 }

@@ -22,15 +22,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NY5-Y8-dQx">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NY5-Y8-dQx">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="htG-kZ-2oB"/>
+                                </constraints>
                                 <items>
-                                    <navigationItem title="Title" id="ylu-o9-yuy"/>
+                                    <navigationItem title="Title" id="ylu-o9-yuy">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="mau-L9-mP4">
+                                            <connections>
+                                                <action selector="onBackTapped" destination="dWq-oT-afj" id="bFq-ee-fwW"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
                                 </items>
                             </navigationBar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ke-Wf-Ez9">
-                                <rect key="frame" x="236" y="44" width="139" height="68"/>
+                                <rect key="frame" x="236" y="64" width="139" height="68"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Start tracking" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5NG-WF-6lj">
                                         <rect key="frame" x="17" y="0.0" width="105" height="21"/>
@@ -56,11 +64,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="2ke-Wf-Ez9" firstAttribute="top" secondItem="N7q-k6-npH" secondAttribute="bottom" constant="24" id="NZF-AM-6Zh"/>
+                            <constraint firstItem="NY5-Y8-dQx" firstAttribute="leading" secondItem="pAK-Bz-CQH" secondAttribute="leading" id="CYo-PI-pe2"/>
+                            <constraint firstItem="2ke-Wf-Ez9" firstAttribute="top" secondItem="N7q-k6-npH" secondAttribute="bottom" constant="44" id="NZF-AM-6Zh"/>
+                            <constraint firstAttribute="trailing" secondItem="NY5-Y8-dQx" secondAttribute="trailing" id="iYM-fw-sjd"/>
                             <constraint firstAttribute="trailing" secondItem="2ke-Wf-Ez9" secondAttribute="trailing" id="lAm-ON-duG"/>
+                            <constraint firstItem="NY5-Y8-dQx" firstAttribute="top" secondItem="pAK-Bz-CQH" secondAttribute="top" constant="20" id="nSH-2e-EjI"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="yEY-dY-Bxj"/>
                     <connections>
                         <outlet property="switchContainer" destination="2ke-Wf-Ez9" id="EdI-p4-Vj6"/>
                         <outlet property="trackingLabel" destination="5NG-WF-6lj" id="aR9-ps-dEe"/>
@@ -108,11 +118,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="route_cell" textLabel="vTJ-bA-dX5" detailTextLabel="B2q-W4-e6d" style="IBUITableViewCellStyleSubtitle" id="29R-cB-sB3">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="detailDisclosureButton" indentationWidth="10" reuseIdentifier="route_cell" textLabel="vTJ-bA-dX5" detailTextLabel="B2q-W4-e6d" style="IBUITableViewCellStyleSubtitle" id="29R-cB-sB3">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="29R-cB-sB3" id="G6S-TL-QJB">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="308" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vTJ-bA-dX5">
@@ -145,7 +155,6 @@
                             <constraint firstItem="k8u-Zn-DVD" firstAttribute="leading" secondItem="daK-Rq-G54" secondAttribute="leadingMargin" constant="100" id="yJ6-jH-GpK"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="4x3-mP-aly"/>
                     <connections>
                         <outlet property="m_currentLocationBtn" destination="k8u-Zn-DVD" id="vpP-HS-Bjg"/>
                         <outlet property="m_routeTable" destination="gnm-Mo-H38" id="bgB-cN-96J"/>
@@ -169,15 +178,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1cC-e3-Z2R">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1cC-e3-Z2R">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="12q-YO-eif"/>
+                                </constraints>
                                 <items>
-                                    <navigationItem title="Title" id="cuu-h2-pI2"/>
+                                    <navigationItem title="Route" id="XOl-rz-4i3">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="5aL-17-jL5">
+                                            <connections>
+                                                <action selector="backTapped" destination="F0A-qS-Xl4" id="ubx-MB-Nhx"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
                                 </items>
                             </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="1cC-e3-Z2R" firstAttribute="leading" secondItem="kJD-ep-p8m" secondAttribute="leading" id="6KK-XM-czI"/>
+                            <constraint firstItem="1cC-e3-Z2R" firstAttribute="top" secondItem="kJD-ep-p8m" secondAttribute="top" constant="20" id="FHx-QS-G6g"/>
+                            <constraint firstAttribute="trailing" secondItem="1cC-e3-Z2R" secondAttribute="trailing" id="Rmc-cj-3mS"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CpM-7a-7a4" userLabel="First Responder" sceneMemberID="firstResponder"/>

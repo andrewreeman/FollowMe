@@ -150,6 +150,12 @@ LocationDelegate* m_locationDelegate;
     }];
 }
 
+-(void)stopLocationUpdates {
+    [[self locationTrackingInteractor] updateTrackingWithNewState:TrackingStateTrackingOff];
+    [m_locationDelegate stop];
+    [[self locationTrackingInteractor] clearTrackingStateListeners];
+}
+
 // MARK: private methods
 
 -(void)startUpdatingLocation {
