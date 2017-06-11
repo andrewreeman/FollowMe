@@ -66,6 +66,19 @@ fileprivate let API_KEY = "AIzaSyCX1gLWDC5ZsiXqUr6oEhGfmHlLm5tQWNY"
         
         if let firstLocation = route.path.first {
             map = createMap(WithFrame: WithFrame, AtCoordinates: firstLocation.location) as! GMSMapView
+            
+            let startMarker = GMSMarker.init(position: firstLocation.location)
+            startMarker.title = route.routeMetaData.displayName
+            startMarker.snippet = route.startDescription
+            startMarker.map = map
+            
+            if let lastLocation = route.path.last {
+                let lastMarker = GMSMarker.init(position: lastLocation.location)
+                lastMarker.title = route.routeMetaData.displayName
+                lastMarker.snippet = route.endDescription
+                lastMarker.map = map                
+            }
+            
         }
         else {
             map = createMap(WithFrame: WithFrame) as! GMSMapView
@@ -79,6 +92,9 @@ fileprivate let API_KEY = "AIzaSyCX1gLWDC5ZsiXqUr6oEhGfmHlLm5tQWNY"
         
         m_gmsPolyline.path = m_path
         m_gmsPolyline.map = map
+        
+        
+        
         return map
     }
     

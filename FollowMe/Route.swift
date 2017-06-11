@@ -215,6 +215,14 @@ final class Route {
     var serializable: SerializableRoute {
         return SerializableRoute.init(FromRoute: self)
     }
+    
+    var startDescription: String {
+        return makeMarkerTitle(ForRouteEntry: m_path.first)
+    }
+    
+    var endDescription: String {
+        return makeMarkerTitle(ForRouteEntry: m_path.last)
+    }
         
     init(FromSerializable: SerializableRoute) {
         self.m_routeMetaData = RouteMetaData.init(FromSerializable: FromSerializable.routeMetaData)
@@ -271,6 +279,18 @@ final class Route {
             return (newDistance, currentEntry)
         }        
         return Int(calculationResult.0)
+    }
+    
+    private func makeMarkerTitle(ForRouteEntry: RouteEntry?) -> String {
+        guard let routeEntry = ForRouteEntry
+        else {
+            return ROUTES_DATE_FORMATTER().string(from: routeMetaData.startTime)
+        }
+        
+        let entryTime = ROUTES_DATE_FORMATTER().string(from:  routeEntry.time)
+        let entryLocation = "Lat: \( routeEntry.location.latitude)\nLon: \( routeEntry.location.longitude)"
+        return "\(entryTime)\n\(entryLocation)"
+        
     }
     
 }
