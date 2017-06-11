@@ -113,7 +113,11 @@ typealias LocationUpdatedWithTrackingStateListener = (CLLocation, TrackingState)
         if !newLocation.isNear(currentLocation) {
             m_currentLocation = newLocation
             m_locationLastUpdated = Date()
+            print("Location updated: Not near. Last updated: \(m_locationLastUpdated) ")
             locationUpdatedListener?(newLocation, m_trackingState)
+        }
+        else {
+            print("Location updated: Too near to change")
         }
     }
     
@@ -131,6 +135,7 @@ typealias LocationUpdatedWithTrackingStateListener = (CLLocation, TrackingState)
             print("Ten seconds ago is: \(tenSecondsAgo)")
             print("Last update is: \(this.m_locationLastUpdated)")
             if this.m_locationLastUpdated < tenSecondsAgo {
+                print("😡Stopped moving!")
                 self?.m_stoppedMovingListener?()
             }
         })
@@ -149,7 +154,7 @@ typealias LocationUpdatedWithTrackingStateListener = (CLLocation, TrackingState)
     }
 }
 
-fileprivate let DISTANCE_THRESHOLD = 2.0 // meters
+fileprivate let DISTANCE_THRESHOLD = -1.0 // meters
 extension CLLocation {
     func isNear(_ location: CLLocation) -> Bool {
         return self.distance(from: location) <= DISTANCE_THRESHOLD

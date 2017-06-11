@@ -24,6 +24,14 @@
         m_manager.delegate = self;
         m_manager.desiredAccuracy = kCLLocationAccuracyBest;
         m_manager.distanceFilter = 1.0f;
+        m_manager.allowsBackgroundLocationUpdates = true;
+        
+        if( m_manager.allowsBackgroundLocationUpdates ){
+            NSLog(@"We CAN get background updates");
+        }
+        else {
+            NSLog(@"We can NOT get background updates");
+        }
     }
     return self;
 }
@@ -108,7 +116,7 @@
 -(void)locationManager:(CLLocationManager *)manager
     didUpdateLocations:(NSArray<CLLocation *> *)locations
 {
-    
+    NSLog(@"Location manager updated location");
     CLLocation* mostRecentLocation = [locations lastObject];   
     if( mostRecentLocation != NULL && m_locationUpdatedListener != NULL ){
         m_locationUpdatedListener(mostRecentLocation);

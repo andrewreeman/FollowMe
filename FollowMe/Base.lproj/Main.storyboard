@@ -23,12 +23,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NY5-Y8-dQx">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="htG-kZ-2oB"/>
+                                    <constraint firstAttribute="height" constant="64" id="htG-kZ-2oB"/>
                                 </constraints>
                                 <items>
-                                    <navigationItem title="Title" id="ylu-o9-yuy">
+                                    <navigationItem title="Route" id="ylu-o9-yuy">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="mau-L9-mP4">
                                             <connections>
                                                 <action selector="onBackTapped" destination="dWq-oT-afj" id="bFq-ee-fwW"/>
@@ -68,7 +68,7 @@
                             <constraint firstItem="2ke-Wf-Ez9" firstAttribute="top" secondItem="N7q-k6-npH" secondAttribute="bottom" constant="44" id="NZF-AM-6Zh"/>
                             <constraint firstAttribute="trailing" secondItem="NY5-Y8-dQx" secondAttribute="trailing" id="iYM-fw-sjd"/>
                             <constraint firstAttribute="trailing" secondItem="2ke-Wf-Ez9" secondAttribute="trailing" id="lAm-ON-duG"/>
-                            <constraint firstItem="NY5-Y8-dQx" firstAttribute="top" secondItem="pAK-Bz-CQH" secondAttribute="top" constant="20" id="nSH-2e-EjI"/>
+                            <constraint firstItem="NY5-Y8-dQx" firstAttribute="top" secondItem="pAK-Bz-CQH" secondAttribute="top" id="nSH-2e-EjI"/>
                         </constraints>
                     </view>
                     <connections>
@@ -182,9 +182,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1cC-e3-Z2R">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="75"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="12q-YO-eif"/>
+                                    <constraint firstAttribute="height" constant="75" id="12q-YO-eif"/>
                                 </constraints>
                                 <items>
                                     <navigationItem title="Route" id="XOl-rz-4i3">
@@ -200,7 +200,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="1cC-e3-Z2R" firstAttribute="leading" secondItem="kJD-ep-p8m" secondAttribute="leading" id="6KK-XM-czI"/>
-                            <constraint firstItem="1cC-e3-Z2R" firstAttribute="top" secondItem="kJD-ep-p8m" secondAttribute="top" constant="20" id="FHx-QS-G6g"/>
+                            <constraint firstItem="1cC-e3-Z2R" firstAttribute="top" secondItem="kJD-ep-p8m" secondAttribute="top" id="FHx-QS-G6g"/>
                             <constraint firstAttribute="trailing" secondItem="1cC-e3-Z2R" secondAttribute="trailing" id="Rmc-cj-3mS"/>
                         </constraints>
                     </view>

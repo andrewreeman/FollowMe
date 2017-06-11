@@ -45,6 +45,10 @@
         <string>googlechromes</string>
         <string>comgooglemaps</string>
     </array>
+    <key>UIBackgroundModes</key>
+    <array>
+        <string>location</string>
+    </array>
         
 </dict>
 </plist>
