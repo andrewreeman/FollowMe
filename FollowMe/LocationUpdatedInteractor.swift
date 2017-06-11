@@ -17,7 +17,6 @@ typealias LocationUpdatedWithTrackingStateListener = (CLLocation, TrackingState)
  This interactor will listen to location updates and pass the updates along with the current tracking state which this interactor stores.
 */
 @objc class LocationUpdatedInteractor: NSObject {
-    private static let DISTANCE_THRESHOLD = 2.0 // meters
     
     // MARK: public properties
     
@@ -43,6 +42,19 @@ typealias LocationUpdatedWithTrackingStateListener = (CLLocation, TrackingState)
             self?.m_trackingState = $0
         }
     }
+    
+    typealias StoppedMovingListener = () -> ()
+    private var m_stoppedMovingListener: StoppedMovingListener?
+    var stoppedMovingListener: StoppedMovingListener? {
+        get {
+            return m_stoppedMovingListener
+        }
+        set {
+            m_stoppedMovingListener = newValue
+        }
+    }
+        
+    
     
     /**
      This callback is used by the LocationDelegate for triggering on every location update.
@@ -72,6 +84,7 @@ typealias LocationUpdatedWithTrackingStateListener = (CLLocation, TrackingState)
     /**
      Trigger the location updated listener only if the new location passes the distance threshold from the previous location.
     */
+   // private var m_isCheckingStillMoving = false
     private func update(ToNewLocation newLocation: CLLocation) {
         guard let currentLocation = m_currentLocation
         else
@@ -80,13 +93,33 @@ typealias LocationUpdatedWithTrackingStateListener = (CLLocation, TrackingState)
             return
         }
         
-        let distanceFromCurrentLocation = newLocation.distance(from: currentLocation)
-        let shouldUpdate = distanceFromCurrentLocation >=
-            LocationUpdatedInteractor.DISTANCE_THRESHOLD
-        if shouldUpdate {
+        if !newLocation.isNear(currentLocation) {
             m_currentLocation = newLocation
             locationUpdatedListener?(newLocation, m_trackingState)
         }
+        
+    /*    // if location is the same after 10 seconds turn off tracking
+        if m_trackingState == .TrackingOff || m_isCheckingStillMoving { return }
+        m_isCheckingStillMoving = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
+            [weak self] in
+            self?.m_isCheckingStillMoving = false
+            
+            guard let currentLocation = self?.m_currentLocation else { return }
+            let oldLocation = newLocation
+            
+            // if old location is...near...current location
+            oldLocation.distance(from: currentLocation)
+            if oldLocation.isNear(currentLocation) {
+                self?.m_stoppedMovingListener?()
+            }
+        }*/
     }
-    
+}
+
+fileprivate let DISTANCE_THRESHOLD = 2.0 // meters
+extension CLLocation {
+    func isNear(_ location: CLLocation) -> Bool {
+        return self.distance(from: location) <= DISTANCE_THRESHOLD
+    }
 }

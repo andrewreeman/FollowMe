@@ -53,7 +53,11 @@ SerializableRoute* _Nullable  m_selectedRoute;
         }
     }];
     [[self m_routeTable] setDelegate:m_tableDelegate];
-    [[self m_routeTable] setDataSource:m_tableDelegate];    
+    [[self m_routeTable] setDataSource:m_tableDelegate];
+    
+    // init button
+    [[self m_currentLocationBtn]setTitle:[@"startFollowing" localized] forState:UIControlStateNormal];
+    [[self m_title]setText:[@"routes" localized]];
 }
 
 -(void) viewDidAppear:(BOOL)animated {

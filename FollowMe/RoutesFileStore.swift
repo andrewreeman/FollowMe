@@ -223,3 +223,7 @@ fileprivate extension RouteMetaData {
         }
     }
 }
+
+fileprivate extension String {
+    
+}

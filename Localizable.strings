@@ -3,6 +3,10 @@
 "locationDisabled" = "Location services are currently disabled. Please turn them on in the phone settings menu";
 
 "followMe" = "FollowMe";
+
+"startFollowing" = "Start following";
+"routes" = "Routes";
+
 "ok" = "OK";
 "trackingOn" = "Tracking...";
 "trackingOff" = "Start tracking";

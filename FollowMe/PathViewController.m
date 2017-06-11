@@ -123,9 +123,12 @@ MapApi* m_mapApi;
 }
 
 -(IBAction)onBackTapped {
-    [[AppDelegate getApp] stopLocationUpdates];
-    
+    [
+     [[AppDelegate getApp]
+      locationTrackingInteractor]updateTrackingWithNewState:TrackingStateTrackingOff
+    ];
     [self dismissViewControllerAnimated:true completion:^{
+        [[AppDelegate getApp] stopLocationUpdates];
         [self completionHandler]();
     }];
 }
@@ -133,18 +136,20 @@ MapApi* m_mapApi;
 // MARK: private methods
 
 /**
- When the toggle is switched this tells the LocationTrackingInteractor (via the AppDelegate) that the tracking state has changed. This LocationTrackingInteractor will then inform the PathViewController that the tracking state has changed leading the label being updaed.
- It seems longwinded but leads to a much more flexible design!
+ When the toggle is switched this tells the LocationTrackingInteractor (via the AppDelegate) that the tracking state has changed. This LocationTrackingInteractor will then inform the PathViewController that the tracking state has changed leading the label and the switch being updaed. 
 */
 -(void)trackingStateUpdated:(TrackingState)newTrackingState {
     switch(newTrackingState) {
         case TrackingStateTrackingOn:
             [[self trackingLabel]setText:[@"trackingOn" localized]];
+            [[self trackingSwitch]setOn:YES];
             break;
         case TrackingStateTrackingOff:
             [[self trackingLabel]setText:[@"trackingOff" localized]];
+            [[self trackingSwitch]setOn: NO];
             break;
         case TrackingStateTrackingUndefined:
+            [[self trackingSwitch]setOn:NO];
             [[self trackingLabel]setText:[@"trackingOff" localized]];
             break;
     };

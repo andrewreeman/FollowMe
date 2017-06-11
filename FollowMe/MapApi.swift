@@ -169,7 +169,7 @@ fileprivate enum MarkerLocation {
             }
             
             marker.title = route.routeMetaData.displayName
-            marker.icon = m_markerImage
+            marker.icon = self.m_markerImage
             return marker
         }
     }
