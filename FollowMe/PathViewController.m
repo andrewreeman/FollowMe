@@ -129,6 +129,7 @@ MapApi* m_mapApi;
     ];
     [self dismissViewControllerAnimated:true completion:^{
         [[AppDelegate getApp] stopLocationUpdates];
+       
         if( [self completionHandler] == NULL) { return; }
         [self completionHandler]();
     }];
@@ -143,15 +144,16 @@ MapApi* m_mapApi;
     switch(newTrackingState) {
         case TrackingStateTrackingOn:
             [[self trackingLabel]setText:[@"trackingOn" localized]];
-            [[self trackingSwitch]setOn:YES];
+            if( ![[self trackingSwitch]isOn] ) {
+                [[self trackingSwitch]setOn:YES animated:true];
+            }
             break;
-        case TrackingStateTrackingOff:
+        default:
             [[self trackingLabel]setText:[@"trackingOff" localized]];
-            [[self trackingSwitch]setOn: NO];
-            break;
-        case TrackingStateTrackingUndefined:
-            [[self trackingSwitch]setOn:NO];
-            [[self trackingLabel]setText:[@"trackingOff" localized]];
+            
+            if( [[self trackingSwitch]isOn] ) {
+                [[self trackingSwitch]setOn:NO animated:true];
+            }
             break;
     };
 }

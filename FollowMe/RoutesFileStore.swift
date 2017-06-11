@@ -205,8 +205,8 @@ fileprivate extension RouteMetaData {
     }
     
     var dir: URL {
-        let directory = ROUTES_DIR.appendingPathComponent(self.id)
-        print("Dir is: \(directory)")
+//        let directory = ROUTES_DIR.appendingPathComponent(self.id)
+  //      print("Dir is: \(directory)")
         return ROUTES_DIR.appendingPathComponent(self.id)
     }
     

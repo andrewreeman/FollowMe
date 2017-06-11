@@ -141,9 +141,9 @@ LocationDelegate* m_locationDelegate;
      [[self locationUpdatedInteractor] trackingStateListener]
     ];
     
-   // [self locationUpdatedInteractor].stoppedMovingListener = ^{
-     //   [[self locationTrackingInteractor]updateTrackingWithNewState:TrackingStateTrackingOff];
-    //};
+    [self locationUpdatedInteractor].stoppedMovingListener = ^{
+        [[self locationTrackingInteractor]updateTrackingWithNewState:TrackingStateTrackingOff];
+    };
     
     /** There is a potential issue here! This is currently relying on the order of being added.
      startUpdatingLocation depends on the locationUpdatedInteractor's locationUsage being updated

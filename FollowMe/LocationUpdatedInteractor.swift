@@ -38,11 +38,22 @@ typealias LocationUpdatedWithTrackingStateListener = (CLLocation, TrackingState)
     private var m_trackingState: TrackingState = TrackingState.TrackingUndefined
     var trackingStateListener: TrackingStateListener {
         return {
-            [weak self] in
-            self?.m_trackingState = $0
+            [weak self]
+            (newTrackingState) in
+            
+            
+            if newTrackingState == TrackingState.TrackingOn {
+                self?.startCheckForStoppedMovementTimer()
+            }
+            else {
+                self?.m_movementStoppedChecker?.invalidate()
+            }
+            
+            self?.m_trackingState = newTrackingState
         }
     }
     
+    // This will be called when movement has stopped. This will be used by the app delegate which will change the tracking state to off
     typealias StoppedMovingListener = () -> ()
     private var m_stoppedMovingListener: StoppedMovingListener?
     var stoppedMovingListener: StoppedMovingListener? {
@@ -54,7 +65,6 @@ typealias LocationUpdatedWithTrackingStateListener = (CLLocation, TrackingState)
         }
     }
         
-    
     
     /**
      This callback is used by the LocationDelegate for triggering on every location update.
@@ -80,6 +90,13 @@ typealias LocationUpdatedWithTrackingStateListener = (CLLocation, TrackingState)
         }
     }
     
+    private var m_locationLastUpdated = Date()
+    private var m_movementStoppedChecker: Timer?
+    
+    deinit {
+        m_movementStoppedChecker?.invalidate()
+    }
+    
     // MARK: private methods
     /**
      Trigger the location updated listener only if the new location passes the distance threshold from the previous location.
@@ -95,25 +112,40 @@ typealias LocationUpdatedWithTrackingStateListener = (CLLocation, TrackingState)
         
         if !newLocation.isNear(currentLocation) {
             m_currentLocation = newLocation
+            m_locationLastUpdated = Date()
             locationUpdatedListener?(newLocation, m_trackingState)
         }
-        
-    /*    // if location is the same after 10 seconds turn off tracking
-        if m_trackingState == .TrackingOff || m_isCheckingStillMoving { return }
-        m_isCheckingStillMoving = true
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
-            [weak self] in
-            self?.m_isCheckingStillMoving = false
+    }
+    
+    private func startCheckForStoppedMovementTimer() {
+        // assign proper timer here
+        m_movementStoppedChecker?.invalidate()
+        m_locationLastUpdated = Date()
+        m_movementStoppedChecker = Timer.init(timeInterval: 10, repeats: true, block: {
+            [weak self]
+            (_) in
             
-            guard let currentLocation = self?.m_currentLocation else { return }
-            let oldLocation = newLocation
-            
-            // if old location is...near...current location
-            oldLocation.distance(from: currentLocation)
-            if oldLocation.isNear(currentLocation) {
+            guard let this = self else { return }
+            print("Movement checker ticked...")
+            let tenSecondsAgo = Date.init(timeIntervalSinceNow: -10)
+            print("Ten seconds ago is: \(tenSecondsAgo)")
+            print("Last update is: \(this.m_locationLastUpdated)")
+            if this.m_locationLastUpdated < tenSecondsAgo {
                 self?.m_stoppedMovingListener?()
             }
-        }*/
+        })
+        RunLoop.main.add(m_movementStoppedChecker!, forMode: RunLoopMode.defaultRunLoopMode)
+    }
+    
+    func timerTicked() {
+        print("Movement checker ticked...")
+        let tenSecondsAgo = Date.init(timeIntervalSinceNow: -10)
+        print("Ten seconds ago is: \(tenSecondsAgo)")
+        print("Last update is: \(self.m_locationLastUpdated)")
+        if self.m_locationLastUpdated < tenSecondsAgo {
+            self.m_stoppedMovingListener?()
+        }
+
     }
 }
 

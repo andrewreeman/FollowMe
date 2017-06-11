@@ -132,14 +132,12 @@ fileprivate enum MarkerLocation {
         
         switch WithTrackingState {
         case .TrackingOn:
-            print("Tracking on...")
             m_path.add(location.coordinate)
             
             if m_gmsPolyline.map == nil {
                 m_gmsPolyline.map = map
             }
         case .TrackingOff:
-            print("Tracking off...")
             if m_gmsPolyline.map != nil {
                 m_path.removeAllCoordinates()
                 m_gmsPolyline.map = nil
