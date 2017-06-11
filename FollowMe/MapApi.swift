@@ -15,8 +15,8 @@ import GoogleMaps
 fileprivate let API_KEY = "AIzaSyCX1gLWDC5ZsiXqUr6oEhGfmHlLm5tQWNY"
 
 fileprivate enum MarkerLocation {
-    case start(CLLocationCoordinate2D)
-    case end(CLLocationCoordinate2D)
+    case start(RouteEntry)
+    case end(RouteEntry)
 }
 
 /**
@@ -80,25 +80,19 @@ fileprivate enum MarkerLocation {
     }
     
     
-    /** create a map view and display the given route if possible */
+    /** create a map view and display the given route if possible.
+     
+    */
     func createMap(WithFrame: CGRect, AndRoute route: Route) -> UIView {
         let map: GMSMapView
         
         if let firstLocation = route.path.first, let lastLocation = route.path.last {
             map = createMap(WithFrame: WithFrame, AtCoordinates: firstLocation.location) as! GMSMapView
+            // making use of function currying so we only need to set the route once
             
-            // create start marker
-            createMarkerFor(
-                location: .start(firstLocation.location),
-                ForRoute: route
-            ).map = map
-            
-            // create end marker
-            createMarkerFor(
-                location: .end(lastLocation.location),
-                ForRoute: route
-            ).map = map
-            
+            let createMarker = curry_createMarkerFor(ForRoute: route)
+            createMarker( .start(firstLocation) ).map = map
+            createMarker( .end(lastLocation) ).map = map
         }
         else {
             map = createMap(WithFrame: WithFrame) as! GMSMapView
@@ -156,23 +150,28 @@ fileprivate enum MarkerLocation {
         m_gmsPolyline.path = m_path
     }
     
-    // MARK: private methods    
+    // MARK: private methods
     
-    private func createMarkerFor(location: MarkerLocation, ForRoute route: Route) -> GMSMarker {
-        let marker: GMSMarker
-        
-        switch location {
-        case .start(let location):
-            marker = GMSMarker.init(position: location)
-            marker.snippet = route.startDescription
-        case .end(let location):
-            marker = GMSMarker.init(position: location)
-            marker.snippet = route.endDescription
+    // given a  route, this returns a function that will create markers for that route given a location
+    private func curry_createMarkerFor(ForRoute route: Route) -> (MarkerLocation) -> GMSMarker {
+        return {
+            (location) in
+            
+            let marker: GMSMarker
+            
+            switch location {
+            case .start(let routeEntry):
+                marker = GMSMarker.init(position: routeEntry.location)
+                marker.snippet = route.startDescription
+            case .end(let routeEntry):
+                marker = GMSMarker.init(position: routeEntry.location)
+                marker.snippet = route.endDescription
+            }
+            
+            marker.title = route.routeMetaData.displayName
+            marker.icon = m_markerImage
+            return marker
         }
-        
-        marker.title = route.routeMetaData.displayName
-        marker.icon = m_markerImage
-        return marker
     }
     
     
