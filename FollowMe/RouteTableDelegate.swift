@@ -9,10 +9,20 @@
 import Foundation
 import UIKit
 
+/**
+  This will generate the table data and the table cells. It will speak to the RouteTableViewController whenever the dataset changes
+*/
+ 
+/**
+  This provides the same function as the LocationDelegateMessagePresenter. It is simply anything that can present a message from the RouteTableDelegate. We will use it for confirmation of deletion and renaming.
+*/
 @objc protocol RouteTableMessagePresenter: class {
     func present(Alert: UIAlertController)
 }
 
+/**
+  The type of datsource modifications that can occur.
+*/
 @objc enum RouteDataSourceAction: Int {
     case routeDeleted
     case routeSelected
@@ -24,6 +34,9 @@ import UIKit
     private var m_routes = [RouteMetaData]()
     private var m_routesFileStore: RoutesFileStore?
     
+    // This listener will be told whenever the data source changes. 
+    // We are passing a serializable route because that is the only obj-c compatable route type
+    // Ideally we would pass a Route but we do not want to bloat this class with being an NSObject
     typealias RouteDataSourceObjCListener = (RouteDataSourceAction, SerializableRoute) -> ()
     
     private var m_objCRouteDataSourceListener: RouteDataSourceObjCListener
@@ -36,10 +49,13 @@ import UIKit
     {
         m_routesFileStore = RoutesFileStore.init()
         m_objCRouteDataSourceListener = AndDataSourceListener
+        
+        // only set the route if we actually retreive any routes!
         m_routes =? m_routesFileStore.flatMap{ try? $0.retrieveRouteMetaData() }
         m_presenter = WithPresenter
         super.init()
         
+        // Informing the RouteTableViewController when renaming and deletion occurs
         m_routesFileStore?.updatedListener = {
             [weak self]
             (transaction, route, error) in
@@ -66,12 +82,15 @@ import UIKit
         guard let route = m_routes[safe: indexPath.row] else { return cell }
         
         cell.textLabel?.text = route.displayName
-        cell.detailTextLabel?.text = "\(route.distanceInMeters)m"
+        cell.detailTextLabel?.text = "\(route.distanceInMeters)m. \(route.durationInSeconds)s"
+        
                        
         return cell
     }
     
     func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        // This is where we make use the presenter to present messages
+        
         guard let route = m_routes[safe: indexPath.row] else { return }
         
         let alert = UIAlertController.init(
@@ -108,7 +127,8 @@ import UIKit
         m_routes =? m_routesFileStore.flatMap{ try? $0.retrieveRouteMetaData() }
     }
     
-    func confirmDelete(Route routeMetaData: RouteMetaData) {
+    // MARK: private methods
+    private func confirmDelete(Route routeMetaData: RouteMetaData) {
         let message = String.init(format: "deleteConfirm".localized, routeMetaData.displayName)
         
         let confirmDeleteAlert = UIAlertController.init(
@@ -130,7 +150,7 @@ import UIKit
         m_presenter.present(Alert: confirmDeleteAlert)
     }
     
-    func confirmRename(Route routeMetaData: RouteMetaData) {
+    private func confirmRename(Route routeMetaData: RouteMetaData) {
         let message = String.init(format: "renameConfirm".localized, routeMetaData.displayName)
         let confirmRenameAlert = UIAlertController.init(
             title: "rename".localized, message: message, preferredStyle: .alert

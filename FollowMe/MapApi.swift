@@ -14,6 +14,11 @@ import GoogleMaps
 */
 fileprivate let API_KEY = "AIzaSyCX1gLWDC5ZsiXqUr6oEhGfmHlLm5tQWNY"
 
+fileprivate enum MarkerLocation {
+    case start(CLLocationCoordinate2D)
+    case end(CLLocationCoordinate2D)
+}
+
 /**
  Wrapper for whatever Map api we use. At the moment we are using the googlemaps api
 */
@@ -52,14 +57,15 @@ fileprivate let API_KEY = "AIzaSyCX1gLWDC5ZsiXqUr6oEhGfmHlLm5tQWNY"
         )
     }
     
-    // Create a map view
-    @objc func createMap(WithFrame: CGRect) -> UIView {
+    /** Create map with default coordinates */
+    func createMap(WithFrame: CGRect) -> UIView {
         return createMap(
             WithFrame: WithFrame,
             AtCoordinates: CLLocationCoordinate2D.init(latitude: 53.3646193, longitude: -1.5047846)
         )
     }
     
+    /** create a map view at the specified coordinates */
     func createMap(WithFrame: CGRect, AtCoordinates: CLLocationCoordinate2D) -> UIView {
         let camera = GMSCameraPosition.camera(withLatitude: AtCoordinates.latitude, longitude: AtCoordinates.longitude, zoom: MapApi.ZOOM_LEVEL)
         let map =  GMSMapView.map(withFrame: WithFrame, camera: camera)
@@ -74,26 +80,24 @@ fileprivate let API_KEY = "AIzaSyCX1gLWDC5ZsiXqUr6oEhGfmHlLm5tQWNY"
     }
     
     
+    /** create a map view and display the given route if possible */
     func createMap(WithFrame: CGRect, AndRoute route: Route) -> UIView {
         let map: GMSMapView
         
-        if let firstLocation = route.path.first {
+        if let firstLocation = route.path.first, let lastLocation = route.path.last {
             map = createMap(WithFrame: WithFrame, AtCoordinates: firstLocation.location) as! GMSMapView
             
-            let startMarker = GMSMarker.init(position: firstLocation.location)
-            startMarker.title = route.routeMetaData.displayName
-            startMarker.snippet = route.startDescription
-            // Kind of giving credit here... <a href="https://icons8.com/icon/7880/Marker-Filled">Marker filled icon credits</a>
-            startMarker.icon = m_markerImage
-            startMarker.map = map
+            // create start marker
+            createMarkerFor(
+                location: .start(firstLocation.location),
+                ForRoute: route
+            ).map = map
             
-            if let lastLocation = route.path.last {
-                let lastMarker = GMSMarker.init(position: lastLocation.location)
-                lastMarker.title = route.routeMetaData.displayName
-                lastMarker.snippet = route.endDescription
-                lastMarker.icon = m_markerImage
-                lastMarker.map = map                
-            }
+            // create end marker
+            createMarkerFor(
+                location: .end(lastLocation.location),
+                ForRoute: route
+            ).map = map
             
         }
         else {
@@ -108,8 +112,6 @@ fileprivate let API_KEY = "AIzaSyCX1gLWDC5ZsiXqUr6oEhGfmHlLm5tQWNY"
         
         m_gmsPolyline.path = m_path
         m_gmsPolyline.map = map
-        
-        
         
         return map
     }
@@ -153,4 +155,25 @@ fileprivate let API_KEY = "AIzaSyCX1gLWDC5ZsiXqUr6oEhGfmHlLm5tQWNY"
         
         m_gmsPolyline.path = m_path
     }
+    
+    // MARK: private methods    
+    
+    private func createMarkerFor(location: MarkerLocation, ForRoute route: Route) -> GMSMarker {
+        let marker: GMSMarker
+        
+        switch location {
+        case .start(let location):
+            marker = GMSMarker.init(position: location)
+            marker.snippet = route.startDescription
+        case .end(let location):
+            marker = GMSMarker.init(position: location)
+            marker.snippet = route.endDescription
+        }
+        
+        marker.title = route.routeMetaData.displayName
+        marker.icon = m_markerImage
+        return marker
+    }
+    
+    
 }

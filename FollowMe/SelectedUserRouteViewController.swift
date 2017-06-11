@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 
+/** The complexity of the route creation will go through the map api */
+
 class SelectedUserRouteViewController: UIViewController {
     
     private var m_route: Route?
