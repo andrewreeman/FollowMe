@@ -17,5 +17,6 @@
     @property (nonnull, nonatomic) IBOutlet UIView* switchContainer;
     @property (nonnull, nonatomic) IBOutlet UILabel* trackingLabel;
     @property (nonnull, nonatomic) IBOutlet UISwitch* trackingSwitch;
+    @property (strong, nonatomic) void (^completionHandler)(void);
 @end
 

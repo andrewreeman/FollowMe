@@ -9,7 +9,11 @@
 
 "routeComplete" = "Route complete 😀";
 "cancel" = "Cancel";
+
 "deleteConfirm" = "Are you sure you wish to delete route: %@?";
 "delete" = "Delete";
+"routeDeleted" = "%@ deleted";
+
 "rename" = "Rename route";
 "renameConfirm" = "Are you sure you wish to rename this route: %@?";
+

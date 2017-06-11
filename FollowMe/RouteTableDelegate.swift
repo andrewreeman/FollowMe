@@ -9,42 +9,49 @@
 import Foundation
 import UIKit
 
- @objc protocol RouteTableMessagePresenter: class {
+@objc protocol RouteTableMessagePresenter: class {
     func present(Alert: UIAlertController)
- }
+}
+
+@objc enum RouteDataSourceAction: Int {
+    case routeDeleted
+    case routeSelected
+    case routeRenamed
+}
  
 @objc class RouteTableDelegate: NSObject, UITableViewDelegate, UITableViewDataSource {
     
     private var m_routes = [RouteMetaData]()
     private var m_routesFileStore: RoutesFileStore?
     
-    typealias RouteSelectedObjCCallbackType = (SerializableRoute) -> ()
+    typealias RouteDataSourceObjCListener = (RouteDataSourceAction, SerializableRoute) -> ()
     
-    private var m_objCRouteSelected: RouteSelectedObjCCallbackType?
-    var objCRouteSelected: RouteSelectedObjCCallbackType? {
-        get {
-            return m_objCRouteSelected
-        }
-        set {
-            m_objCRouteSelected = newValue
-        }
-    }
-    
+    private var m_objCRouteDataSourceListener: RouteDataSourceObjCListener
     private let m_presenter: RouteTableMessagePresenter
     
     @objc init(
         WithPresenter: RouteTableMessagePresenter,
-        AndDataSourceListener: @escaping () -> ()
+        AndDataSourceListener: @escaping RouteDataSourceObjCListener
     )
     {
         m_routesFileStore = RoutesFileStore.init()
-        m_routesFileStore?.updatedListener = {
-            (transaction, route, error) in
-            AndDataSourceListener()
-        }
+        m_objCRouteDataSourceListener = AndDataSourceListener
         m_routes =? m_routesFileStore.flatMap{ try? $0.retrieveRouteMetaData() }
         m_presenter = WithPresenter
         super.init()
+        
+        m_routesFileStore?.updatedListener = {
+            [weak self]
+            (transaction, route, error) in
+            
+            switch (transaction, route) {
+            case (.delete, .some(let r)) :
+                self?.m_objCRouteDataSourceListener(.routeDeleted, r.serializable)
+            case (.update, .some(let r)):
+                self?.m_objCRouteDataSourceListener(.routeRenamed, r.serializable)
+            default: break
+            }
+        }
     }
     
     // MARK: data source methods
@@ -86,16 +93,14 @@ import UIKit
     }
     
     // MARK: delegate methods
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let callback = m_objCRouteSelected else { return }
-        
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {                
         guard let routeMetaData = m_routes[safe: indexPath.row]
         else { return }
         
         guard let route = m_routesFileStore?.getRouteFor(RouteMetaData: routeMetaData)
         else { return }
         
-        callback(route.serializable)
+        m_objCRouteDataSourceListener(.routeSelected, route.serializable)
     }
         
     // public methods 

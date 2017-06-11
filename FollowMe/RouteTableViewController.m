@@ -10,6 +10,7 @@
 
 
 #import "RouteTableViewController.h"
+#import "PathViewController.h"
 #import "NSString+StringExtensions_m.m"
 #import "FollowMe-Swift.h"
 
@@ -26,16 +27,33 @@ SerializableRoute* _Nullable  m_selectedRoute;
 
 -(void) viewDidLoad {
     m_selectedRoute = NULL;
-    m_tableDelegate = [[RouteTableDelegate alloc]initWithPresenter:self AndDataSourceListener:^{
-        [self reload];
+    m_tableDelegate = [[RouteTableDelegate alloc]initWithPresenter:self AndDataSourceListener:
+    ^(enum RouteDataSourceAction action, SerializableRoute * _Nonnull route) {
+        switch(action) {
+            case RouteDataSourceActionRouteDeleted:
+            {
+                NSString* message = [NSString stringWithFormat:
+                                     [@"routeDeleted" localized], [[route routeMetaData] name]
+                                     ];
+                [[self view] makeToast:message];
+                [self reload];
+                break;
+            }
+            case RouteDataSourceActionRouteRenamed:
+            {
+                [self reload];
+                break;
+            }
+            case RouteDataSourceActionRouteSelected:
+            {
+                m_selectedRoute = route;
+                [self performSegueWithIdentifier:@"showStoredRouteSegue" sender:self];
+            }
+            default: break;
+        }
     }];
     [[self m_routeTable] setDelegate:m_tableDelegate];
-    [[self m_routeTable] setDataSource:m_tableDelegate];
-    
-    m_tableDelegate.objCRouteSelected = ^(SerializableRoute * _Nonnull route) {
-        m_selectedRoute = route;
-        [self performSegueWithIdentifier:@"showStoredRouteSegue" sender:self];
-    };
+    [[self m_routeTable] setDataSource:m_tableDelegate];    
 }
 
 -(void) viewDidAppear:(BOOL)animated {
@@ -43,11 +61,20 @@ SerializableRoute* _Nullable  m_selectedRoute;
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if([segue.destinationViewController isKindOfClass:[SelectedUserRouteViewController class]]) {
-        SelectedUserRouteViewController* vc = (SelectedUserRouteViewController*)segue.destinationViewController;
+    UIViewController* vc = segue.destinationViewController;
+    
+    if([vc isKindOfClass:[SelectedUserRouteViewController class]]) {
+        SelectedUserRouteViewController* selectedRouteVC = (SelectedUserRouteViewController*)vc;
         
-        [vc setRoute:m_selectedRoute];
+        [selectedRouteVC setRoute:m_selectedRoute];
     }
+    else if( [vc isKindOfClass: [PathViewController class]]) {
+        PathViewController* pathVC = (PathViewController*)vc;
+        pathVC.completionHandler = ^{
+            [self reload];
+        };
+    }
+    
 }
 
 // MARK: RouteTableMessagePresenter methods
