@@ -23,7 +23,20 @@ fileprivate let API_KEY = "AIzaSyCX1gLWDC5ZsiXqUr6oEhGfmHlLm5tQWNY"
     
     private let m_path = GMSMutablePath()
     private let m_gmsPolyline = GMSPolyline.init()
-    
+    private var m_markerImage: UIImage {
+        let image = #imageLiteral(resourceName: "Marker")
+        
+        if let cgImage = image.cgImage {
+            return UIImage.init(
+                cgImage: cgImage,
+                scale: 3.0,
+                orientation: image.imageOrientation
+            )
+        }
+        else {
+            return image
+        }
+    }
     override init() {
         
         if !MapApi.GMS_HAS_BEEN_INIT {
@@ -70,12 +83,15 @@ fileprivate let API_KEY = "AIzaSyCX1gLWDC5ZsiXqUr6oEhGfmHlLm5tQWNY"
             let startMarker = GMSMarker.init(position: firstLocation.location)
             startMarker.title = route.routeMetaData.displayName
             startMarker.snippet = route.startDescription
+            // Kind of giving credit here... <a href="https://icons8.com/icon/7880/Marker-Filled">Marker filled icon credits</a>
+            startMarker.icon = m_markerImage
             startMarker.map = map
             
             if let lastLocation = route.path.last {
                 let lastMarker = GMSMarker.init(position: lastLocation.location)
                 lastMarker.title = route.routeMetaData.displayName
                 lastMarker.snippet = route.endDescription
+                lastMarker.icon = m_markerImage
                 lastMarker.map = map                
             }
             
