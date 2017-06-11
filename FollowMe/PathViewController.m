@@ -129,6 +129,7 @@ MapApi* m_mapApi;
     ];
     [self dismissViewControllerAnimated:true completion:^{
         [[AppDelegate getApp] stopLocationUpdates];
+        if( [self completionHandler] == NULL) { return; }
         [self completionHandler]();
     }];
 }
